@@ -11,7 +11,7 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <a href="" class="header__logo">COACHTECH</a>
+            <a href="/" class="header__logo">COACHTECH</a>
         </div>
     </header>
 

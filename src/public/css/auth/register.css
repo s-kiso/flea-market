@@ -1,0 +1,11 @@
+.register-contents {
+    background-color: red;
+    max-width: 1540px;
+    text-align: center;
+}
+
+@media screen and (max-width:850px) {
+    .register-contents {
+        background-color: blue;
+    }
+}
