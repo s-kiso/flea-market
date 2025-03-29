@@ -1,0 +1,31 @@
+.inter {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.noto-sans-jp {
+    font-family: "Noto Sans JP", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.header {
+    height: 30px;
+    background-color: #000000;
+}
+
+.header__inner {
+    height: 25px;
+}
+
+.header__logo {
+    height: 100%;
+}
+
+.header__logo img {
+    height: 100%;
+    padding: 5px 15px;
+}
