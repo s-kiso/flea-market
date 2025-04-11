@@ -19,4 +19,4 @@ Route::get('/', [ItemController::class, 'index']);
 
 Route::get('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'login']);
-Route::get('/', [AuthController::class, 'index']);
+Route::get('/', [AuthController::class, 'registered']);

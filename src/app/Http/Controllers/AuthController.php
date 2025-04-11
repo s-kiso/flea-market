@@ -13,7 +13,7 @@ class AuthController extends Controller
 
     public function registered()
     {
-        return view('item/index');
+        return view('profile/edit');
     }
 
     public function login()

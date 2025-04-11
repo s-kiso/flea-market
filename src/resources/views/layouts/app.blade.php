@@ -18,6 +18,12 @@
                 <img src=" {{ asset('storage/'.'header-logo.png') }}" alt="">
             </a>
         </div>
+        @if(Auth::check())
+        <form action="/logout" method="post" class="logout-form">
+            @csrf
+            <button class="header-button">ログアウト</button>
+        </form>
+        @endif
     </header>
 
     <main>

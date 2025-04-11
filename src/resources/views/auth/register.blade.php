@@ -13,7 +13,7 @@
     @csrf
         <div class="form-item">
             <label class="form-label">ユーザー名</label>
-            <input type="text" class="form-input" name="name">
+            <input type="text" class="form-input" name="name" value="{{ old('name') }}">
             <div class="form-error">
                 @error('name')
                 {{$message}}
@@ -22,7 +22,7 @@
         </div>
         <div class="form-item">
             <label class="form-label">メールアドレス</label>
-            <input type="email" class="form-input" name="email">
+            <input type="email" class="form-input" name="email" value="{{ old('email') }}">
             <div class="form-error">
                 @error('email')
                 {{$message}}
