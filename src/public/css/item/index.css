@@ -1,0 +1,20 @@
+.items-contents {
+    padding: 30px 0;
+}
+
+.items-heading {
+    display: flex;
+    padding: 0 50px;
+    border-bottom: 2px solid #5F5F5F;
+}
+
+.items-heading-label {
+    margin: 0 30px;
+    padding-bottom: 5px;
+}
+
+.items-list {
+    display: flex;
+    margin: 50px;
+    flex-wrap: wrap;
+}

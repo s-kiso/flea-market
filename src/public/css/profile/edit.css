@@ -1,0 +1,63 @@
+.edit-contents {
+    max-width: 1540px;
+    /* width=1400でやると自分のpcで横スクロールが必要になるため1200pxで実施 */
+    width: 40%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.edit-heading {
+    font-weight: 700;
+    font-size: 24px;
+    color: #000000;
+    margin-bottom: 40px;
+}
+
+.edit-form {
+    width: 100%;
+}
+
+.form-file {
+    border-radius: 10px;
+    border: 2px;
+    border-color: #FF5555;
+    color: #FF5555;
+}
+
+.form-input {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #5F5F5F;
+    border-radius: 4px;
+    margin: 5px 0 20px 0;
+}
+
+.form-label {
+    text-align: left;
+    display: block;
+    font-weight: 700;
+    font-size: 16px;
+    color: #000000;
+}
+
+.form-button {
+    width: 100%;
+    height: 35px;
+    background-color: #FF5555;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 40px;
+}
+
+/* メディアクエリ、タブレットとpcで変更したい部分だけ書けばOK? */
+@media screen and (max-width:850px) {
+    .register-contents {
+        /* 画面を小さくしたらその分入力欄の割合を大きくしているが、数値指定(前の面談で言っていたように768pxのときに崩れないようにしておく）のほうがいいのか */
+        width: 80%;
+        text-align: center;
+        margin: 0 auto;
+    }
+}

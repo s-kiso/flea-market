@@ -11,13 +11,13 @@ class AuthController extends Controller
         return view('auth/register');
     }
 
-    public function registered()
-    {
-        return view('profile/edit');
-    }
-
     public function login()
     {
         return view('auth/login');
+    }
+
+    public function logout()
+    {
+        return view('item/index');
     }
 }

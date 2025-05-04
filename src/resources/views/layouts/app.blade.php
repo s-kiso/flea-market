@@ -12,18 +12,28 @@
     @yield('css')
 </head>
 <body>
+
     <header class="header">
         <div class="header__inner">
-            <a href="/" class="header__logo">
+            <a class="header__logo" href="/">
                 <img src=" {{ asset('storage/'.'header-logo.png') }}" alt="">
             </a>
+            @if(Auth::check())
+            <div class="header-search-form">
+                <form action="/products/search" method="get">
+                    <input type="text" name="product_name" value="{{$product_name ?? '' }}" placeholder="なにをお探しですか？" class="header-search-input">
+                </form>
+            </div>
+            <div class="header-logout-form">
+                <form action="/logout" method="post">
+                    @csrf
+                    <button class="header-button">ログアウト</button>
+                </form>
+            </div>
+            <a href="/mypage" class="header-button-mypage">マイページ</a>
+            <a href="/sell" class="header-button-sell">出品</a>
+            @endif
         </div>
-        @if(Auth::check())
-        <form action="/logout" method="post" class="logout-form">
-            @csrf
-            <button class="header-button">ログアウト</button>
-        </form>
-        @endif
     </header>
 
     <main>

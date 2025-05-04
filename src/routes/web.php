@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\MypageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,10 @@ Route::get('/', [ItemController::class, 'index']);
 
 Route::get('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'login']);
-Route::get('/', [AuthController::class, 'registered']);
+Route::get('/logout', [AuthController::class, 'logout']);
+Route::get('/mypage/profile', [MypageController::class, 'edit']);
+Route::post('/edit', [MypageController::class, 'edited']);
+Route::get('/item/:{item_id}', [ItemController::class, 'detail'])->name('item.detail');
+Route::get('/sell', [ItemController::class, 'register']);
+Route::post('/sell', [ItemController::class, 'registered']);
+

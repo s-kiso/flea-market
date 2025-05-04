@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Condition extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name'
+    ];
+
+    public function item()
+    {
+        return $this->hasMany(Item::class);
+    }
 }
