@@ -1,3 +1,4 @@
+
 .inter {
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
@@ -12,6 +13,10 @@
     font-style: normal;
 }
 
+button,input,select,textarea {
+    font-family: inherit;
+}
+
 .header {
     height: 30px;
     background-color: #000000;
@@ -19,6 +24,7 @@
 
 .header__inner {
     display: flex;
+    justify-content: space-between;
     height: 25px;
 }
 
@@ -31,10 +37,22 @@
     padding: 5px 15px;
 }
 
-.header-search-form input {
-    width: 30%;
+.header-search-form {
+    width: 50%;
     height: 80%;
+}
+
+.header-search-form input {
+    width: 100%;
     border-radius: 5px;
+}
+
+.header-button {
+    text-decoration: none;
+    background-color: #000000;
+    color: #FFFFFF;
+    border: none;
+    font-size: 16px;
 }
 
 .header-button-mypage {
@@ -44,5 +62,8 @@
 
 .header-button-sell {
     text-decoration: none;
+    background-color: #FFFFFF;
     color: #000000;
+    margin-right: 10px;
+    padding: 0 10px;
 }

@@ -16,5 +16,15 @@
 .items-list {
     display: flex;
     margin: 50px;
+    justify-content: flex-start;
     flex-wrap: wrap;
+}
+
+.items-list a {
+    width: 30%;
+    text-decoration: none;
+}
+
+.item-card-image img {
+    width: 100%;
 }

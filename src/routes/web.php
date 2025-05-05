@@ -26,4 +26,5 @@ Route::post('/edit', [MypageController::class, 'edited']);
 Route::get('/item/:{item_id}', [ItemController::class, 'detail'])->name('item.detail');
 Route::get('/sell', [ItemController::class, 'register']);
 Route::post('/sell', [ItemController::class, 'registered']);
+Route::get('/mypage', [MypageController::class, 'index']);
 
