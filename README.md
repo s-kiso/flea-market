@@ -2,7 +2,7 @@
 <h2>環境構築</h2>
 <h3>Dockerビルド</h3>
 <ol>
-  <li>git clone リンク</li>
+  <li>git clone git@github.com:s-kiso/flea-market.git</li>
   <li>docker-compose up -d --build</li>
 </ol>
 
@@ -31,10 +31,9 @@
   <li>MySQL 8.0.26</li>
 </ul>
 <h3>ER図</h3>
-![Image](https://github.com/user-attachments/assets/3b277bec-b054-4826-b2cc-b30cdefeb430)
-<p>URL：https://github.com/s-kiso/mogitate/blob/main/mogitate.drawio.png</p>
+<p>https://github.com/user-attachments/assets/3b277bec-b054-4826-b2cc-b30cdefeb430</p>
 <h3>URL</h3>
 <ul>
-  <li>開発環境:http://localhost/</li>
-  <li>phpMyAdmin:http://localhost:8080/</li>
+  <li>開発環境: http://localhost/</li>
+  <li>phpMyAdmin: http://localhost:8080/</li>
 </ul>
