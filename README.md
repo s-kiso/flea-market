@@ -31,7 +31,9 @@
   <li>MySQL 8.0.26</li>
 </ul>
 <h3>ER図</h3>
-<p>https://github.com/user-attachments/assets/3b277bec-b054-4826-b2cc-b30cdefeb430</p>
+
+![Image](https://github.com/user-attachments/assets/74e8fd4b-bc60-43c0-ac50-980b604c876f)
+
 <h3>URL</h3>
 <ul>
   <li>開発環境: http://localhost/</li>
