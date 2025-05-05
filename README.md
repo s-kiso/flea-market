@@ -31,6 +31,7 @@
   <li>MySQL 8.0.26</li>
 </ul>
 <h3>ER図</h3>
+![Image](https://github.com/user-attachments/assets/3b277bec-b054-4826-b2cc-b30cdefeb430)
 <p>URL：https://github.com/s-kiso/mogitate/blob/main/mogitate.drawio.png</p>
 <h3>URL</h3>
 <ul>
