@@ -39,3 +39,8 @@
   <li>開発環境: http://localhost/</li>
   <li>phpMyAdmin: http://localhost:8080/</li>
 </ul>
+
+<h3>備考</h3>
+<ul>
+  <li>会員登録・ログイン機能以外はほぼできていないです</li>
+</ul>
