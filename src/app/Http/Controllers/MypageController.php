@@ -17,10 +17,13 @@ class MypageController extends Controller
 
     public function edited(ProfileRequest $request)
     {
-        $request->flash;
-        $filename = $request->image->getClientOriginalName();
-        $image = $request->image->storeAs('', $filename, 'public');
 
+        $request->flash;
+        $image = null;
+        if(isset($request->image)) {
+            $filename = $request->image->getClientOriginalName();
+            $image = $request->image->storeAs('', $filename, 'public');
+        };
         
         $name = $request->input('name');
         $address = $request->input('address');
@@ -33,6 +36,8 @@ class MypageController extends Controller
         $user->address = $address;
         $user->postal_code = $postal_code;
         $user->building = $building;
+
+        $user->save();
 
         return redirect('/');
     }

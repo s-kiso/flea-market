@@ -28,3 +28,5 @@ Route::get('/sell', [ItemController::class, 'register']);
 Route::post('/sell', [ItemController::class, 'registered']);
 Route::get('/mypage', [MypageController::class, 'index']);
 
+Route::post('/item/like', [ItemController::class, 'like']);
+Route::post('/item/comment', [ItemController::class, 'comment']);

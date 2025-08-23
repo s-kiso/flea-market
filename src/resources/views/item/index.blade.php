@@ -12,16 +12,13 @@
     </div>
     <div class="items-list">
         @foreach ($items as $item)
-        <a href=" {{ route('item.detail', ['item_id'=>$item->id]) }}">
-            <div class="item-card">
-                <div class="item-card-image">
-                    <img src=" {{ asset('storage/'.$item->image) }}" alt="">
-                </div>
-                <div class="item-card-label">
-                    <p>{{ $item->name }}</p>
-                </div>
-            </div>
-        </a>
+        <div class="item-card">
+            <a href=" {{ route('item.detail', ['item_id'=>$item->id]) }}">
+                <img src=" {{ asset('storage/'.$item->image) }}" alt="">
+                <p>{{ $item->name }}</p>
+            </a>
+        </div>
+        
         @endforeach
     </div>
 </div>

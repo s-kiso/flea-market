@@ -18,33 +18,46 @@ button,input,select,textarea {
 }
 
 .header {
-    height: 30px;
     background-color: #000000;
 }
 
 .header__inner {
     display: flex;
     justify-content: space-between;
-    height: 25px;
+    align-items: center;
+    height: 30px;
+    padding: 10px 0;
 }
 
 .header__logo {
-    height: 100%;
+    padding: 10px;
+    width: 30%;
 }
 
 .header__logo img {
-    height: 100%;
-    padding: 5px 15px;
+    height: 30px;
+    padding: 10px;
 }
 
 .header-search-form {
-    width: 50%;
-    height: 80%;
+    width: 40%;
+    margin-left: 10%;
 }
 
 .header-search-form input {
     width: 100%;
+    height: 30px;
     border-radius: 5px;
+    color: #000000;
+}
+
+.header-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+    padding-left: 10%;
+    padding-right: 20px;
 }
 
 .header-button {
@@ -53,9 +66,10 @@ button,input,select,textarea {
     color: #FFFFFF;
     border: none;
     font-size: 16px;
+    cursor: pointer;
 }
 
-.header-button-mypage {
+.header-button-a {
     text-decoration: none;
     color: #FFFFFF;
 }
@@ -64,6 +78,6 @@ button,input,select,textarea {
     text-decoration: none;
     background-color: #FFFFFF;
     color: #000000;
-    margin-right: 10px;
-    padding: 0 10px;
+    padding: 10px 10px;
+    border-radius: 4px;
 }
