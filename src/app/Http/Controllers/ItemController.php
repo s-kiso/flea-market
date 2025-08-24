@@ -80,4 +80,5 @@ class ItemController extends Controller
 
         return redirect()->route('item.detail', ['item_id' => $item_id]);
     }
+
 }

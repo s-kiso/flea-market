@@ -7,8 +7,9 @@
 @section('content')
 <div class="items-contents">
     <div class="mypage-user">
-        <h2>ユーザー名</h2>
-        <a href="/mypage/profile">プロフィールを編集</a>
+        <div class="user-image"><img src="{{ asset('storage/'.$user->image) }}" alt=""></div>
+        <h2 class="user-name">{{ $user->name }}</h2>
+        <a href="/mypage/profile" class="user-edit">プロフィールを編集</a>
     </div>
     <div class="items-heading">
         <h3 class="items-heading-label">出品した商品</h3>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use App\Models\User;
 
 class MypageController extends Controller
 {
@@ -17,7 +18,6 @@ class MypageController extends Controller
 
     public function edited(ProfileRequest $request)
     {
-
         $request->flash;
         $image = null;
         if(isset($request->image)) {
@@ -43,7 +43,12 @@ class MypageController extends Controller
     }
 
     public function index(){
+        $user_id = auth()->id();
+        $user = User::find($user_id);
+        // dd($user);
+
         $items = Item::paginate(9);
-        return view('profile/index', compact('items'));
+        return view('profile/index', compact('items', 'user'));
     }
+
 }

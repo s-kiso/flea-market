@@ -100,6 +100,12 @@ h4{
     border-radius: 50%;
 }
 
+.user_image img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
 .item-comments-profile{
     display: flex;
     align-items: center;

@@ -65,7 +65,7 @@
             <h3 class="item-comments-h3">コメント({{$comments_number}})</h3>
             @foreach($comments as $comment)
                 <div class="item-comments-profile">
-                    <div class="user_image">{{ $comment->image }}</div>
+                    <div class="user_image"><img src="{{ asset('storage/'.$comment->image) }}" alt=""></div>
                     <p>{{ $comment->name }}</p>
                 </div>
                 <div class="item-comments-main">{{ $comment->pivot->comment }}</div>
