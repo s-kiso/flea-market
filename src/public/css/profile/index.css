@@ -47,6 +47,11 @@
     margin: 0 30px;
 }
 
+.items-heading-label-selected {
+    margin: 0 30px;
+    color: #FF0000;
+}
+
 .items-list {
     display: flex;
     margin: 50px 35px;

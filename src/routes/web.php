@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MypageController;
+use App\Http\Controllers\PurchaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use App\Http\Controllers\MypageController;
 |
 */
 
-Route::get('/', [ItemController::class, 'index']);
+Route::get('/', [ItemController::class, 'index'])->name('home');
 
 Route::get('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'login']);
@@ -26,6 +27,10 @@ Route::post('/edit', [MypageController::class, 'edited']);
 Route::get('/item/:{item_id}', [ItemController::class, 'detail'])->name('item.detail');
 Route::get('/sell', [ItemController::class, 'register']);
 Route::post('/sell', [ItemController::class, 'registered']);
+Route::get('/purchase/:{item_id}', [PurchaseController::class, 'purchase']);
+Route::post('/purchase/:{item_id}', [PurchaseController::class, 'purchased']);
+Route::get('/purchase/:{item_id}?type={type}', [PurchaseController::class, 'purchase'])->name('purchase.payment');
+Route::get('/purchase/address/:{item_id}', [PurchaseController::class, 'edit'])->name('address.modify');
 Route::get('/mypage', [MypageController::class, 'index']);
 
 Route::post('/item/like', [ItemController::class, 'like']);

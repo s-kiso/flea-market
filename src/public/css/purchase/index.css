@@ -1,0 +1,135 @@
+.purchase-contents{
+    margin: 70px 80px;
+    display: flex;
+}
+
+.purchase-left{
+    width: 65%;
+}
+
+.item-detail{
+    display: flex;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #000000;
+}
+
+.item-img{
+    width: 200p;
+    height: 200px;
+}
+
+.item-img img{
+    width: 100%;
+    height: 100%;
+}
+
+.item-name{
+    margin-left: 50px;
+}
+
+.item-name h2{
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.item-price{
+    font-size: 27px;
+    margin-top: 20px;
+}
+
+.payment{
+    margin-top:20px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #000000;
+}
+
+h3{
+    margin-left: 20px;
+}
+
+.payment-select-default{
+    display: none;
+    border: 1px solid #5f5f5f;
+    width: 200px;
+}
+
+.payment-select{
+    display: none;
+    list-style: none;
+    margin: 0;
+    width: 100%;
+}
+
+.default {
+    background: #FFFFFF;
+    font-weight: 300;
+    font-size: 14px;
+    color: #5f5f5f;
+    position: relative;
+    display: block;
+    cursor: pointer;
+    padding: 10px 40px 10px 10px;
+    margin: 30px 0 0 40px;
+    border: 1px solid #5f5f5f;
+}
+
+.default::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 10px solid #5f5f5f;
+    transform: translateY(-50%);
+}
+
+.default-label{
+    width: 250px;
+}
+
+.selected{
+    width: 210px;
+    outline: none;
+    border: none;
+    background-color: #FFFFFF;
+    text-decoration: none;
+    color: #5f5f5f;
+    font-weight: 300;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: left;
+    margin-left: 40px;
+    border-bottom: 1px solid #5f5f5f;
+    border-left: 1px solid #5f5f5f;
+    border-right: 1px solid #5f5f5f;
+    padding: 7px 10px;
+}
+
+.payment-select-default:checked ~ .payment-select{
+    display: block;
+}
+
+.address{
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #000000;
+}
+
+.address-top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.address-modify{
+    margin-right: 20px;
+    color: #0073cc;
+}
+
+.address-detail{
+    margin: 30px 0 30px 40px;
+}
+
+.address-detail p{
+    margin-bottom: 5px;
+}

@@ -9,12 +9,35 @@ use App\Models\Item;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
+use function GuzzleHttp\Promise\all;
+
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::paginate(9);
-        return view('item/index', compact('items'));
+        $user_id = auth()->id();
+        $type = $request->query('type');
+
+        if($type == "like"){
+            if (isset($user_id)) {
+                $items = User::find($user_id)->like->all();
+                foreach($items as $key => $item){
+                    $seller = $item->user_id;
+                    if($seller == $user_id){
+                        unset($items[$key]);
+                    }
+                }
+            } else {
+                $items = null;
+            }
+        }else{
+            if (isset($user_id)) {
+                $items = Item::where('user_id', '<>', $user_id)->orWhereNull('user_id')->get();
+            } else {
+                $items = Item::all();
+            }
+        }
+        return view('item/index', compact('items', 'type'));
     }
 
     public function detail($item_id)
@@ -49,10 +72,27 @@ class ItemController extends Controller
         return view('item/register', compact('conditions'));
     }
 
-    public function registered(ExhibitionRequest $request)
+    public function registered(Request $request)
     {
+        $user_id = auth()->id();
         $filename = $request->image->getClientOriginalName();
         $image = $request->image->storeAs('', $filename, 'public');
+        $category = $request->input('category');
+
+        $register_data = new Item();
+        $register_data->condition_id = $request->input('condition');
+        $register_data->user_id = $user_id;
+        $register_data->name = $request->input('name');
+        $register_data->brand = $request->input('brand');
+        $register_data->price = $request->input('price');
+        $register_data->description = $request->input('description');
+        $register_data->image = $image;
+        $register_data->save();
+        
+        $item_id = $register_data->id;
+        Item::find($item_id)->category()->attach($category);
+
+        return redirect()->route('home');
     }
 
     public function like(Request $request)

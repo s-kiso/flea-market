@@ -110,4 +110,9 @@ padding:0;
 
 input, select {
 vertical-align:middle;
+box-sizing: border-box;
+}
+
+textarea {
+    box-sizing: border-box;
 }

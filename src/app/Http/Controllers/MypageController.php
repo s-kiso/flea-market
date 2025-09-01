@@ -42,13 +42,22 @@ class MypageController extends Controller
         return redirect('/');
     }
 
-    public function index(){
+    public function index(Request $request){
+
+        $type = $request->query('type');
         $user_id = auth()->id();
         $user = User::find($user_id);
         // dd($user);
 
-        $items = Item::paginate(9);
-        return view('profile/index', compact('items', 'user'));
+        if($type == "purchase"){
+            // $purchase_items = User::find($user_id)->purchase->sll()->pivot->item_id;
+            // dd($purchase_items);
+            $items = Item::all();
+        }else{
+            $items = Item::where('user_id', $user_id)->get();
+        }
+        
+        return view('profile/index', compact('items', 'user', 'type'));
     }
 
 }

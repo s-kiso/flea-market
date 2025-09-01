@@ -45,6 +45,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function item()
+    {
+        return $this->belongsToMany(Item::class);
+    }
+
     public function comment()
     {
         return $this->belongsToMany(Item::class, 'comments')->withPivot('comment');
