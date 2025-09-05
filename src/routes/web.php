@@ -19,19 +19,26 @@ use App\Http\Controllers\PurchaseController;
 
 Route::get('/', [ItemController::class, 'index'])->name('home');
 
-Route::get('/register', [AuthController::class, 'register']);
-Route::get('/login', [AuthController::class, 'login']);
-Route::get('/logout', [AuthController::class, 'logout']);
-Route::get('/mypage/profile', [MypageController::class, 'edit']);
-Route::post('/edit', [MypageController::class, 'edited']);
-Route::get('/item/:{item_id}', [ItemController::class, 'detail'])->name('item.detail');
-Route::get('/sell', [ItemController::class, 'register']);
-Route::post('/sell', [ItemController::class, 'registered']);
-Route::get('/purchase/:{item_id}', [PurchaseController::class, 'purchase']);
-Route::post('/purchase/:{item_id}', [PurchaseController::class, 'purchased']);
-Route::get('/purchase/:{item_id}?type={type}', [PurchaseController::class, 'purchase'])->name('purchase.payment');
-Route::get('/purchase/address/:{item_id}', [PurchaseController::class, 'edit'])->name('address.modify');
-Route::get('/mypage', [MypageController::class, 'index']);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/?tab=mylist', [MypageController::class, 'index'])->name('mylist');
+    Route::get('/mypage/profile', [MypageController::class, 'edit']);
+    Route::post('/edit', [MypageController::class, 'edited']);
+    Route::get('/sell', [ItemController::class, 'register']);
+    Route::post('/sell', [ItemController::class, 'registered']);
+    Route::get('/purchase/:{item_id}', [PurchaseController::class, 'purchase']);
+    Route::post('/purchase/:{item_id}', [PurchaseController::class, 'purchased'])->name('purchase.submit');
+    Route::get('/purchase/:{item_id}?type={type}', [PurchaseController::class, 'purchase'])->name('purchase.payment');
+    Route::get('/purchase/address/:{item_id}', [PurchaseController::class, 'edit'])->name('address.modify');
+    Route::get('/mypage', [MypageController::class, 'index']);
+    Route::post('/item/like', [ItemController::class, 'like']);
+    Route::post('/item/comment', [ItemController::class, 'comment']);
+});
 
-Route::post('/item/like', [ItemController::class, 'like']);
-Route::post('/item/comment', [ItemController::class, 'comment']);
+
+
+Route::get('/register', [AuthController::class, 'register']);
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/logout', [AuthController::class, 'logout']);
+
+Route::get('/item/:{item_id}', [ItemController::class, 'detail'])->name('item.detail');
+

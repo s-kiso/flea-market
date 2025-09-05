@@ -133,3 +133,48 @@ h3{
 .address-detail p{
     margin-bottom: 5px;
 }
+
+.purchase-right{
+    width: 35%;
+    margin-left: 50px;
+}
+
+.summary{
+    
+    border: 1px solid #000000;
+}
+
+.summary-price{
+    padding: 50px 30px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000000;
+}
+
+.summary-label{
+    font-size: 20px;
+}
+
+.summary-main{
+    font-size: 24px;
+}
+
+.summary-payment{
+    padding: 50px 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.purchase-form-button{
+    margin-top: 50px;
+    padding: 5px 0;
+    height: 100%;
+    width: 100%;
+    background-color: #FF5555;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 25px;
+    border-radius: 4px;
+}

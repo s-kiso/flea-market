@@ -9,13 +9,19 @@ use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
-    public function purchase($item_id)
+    public function purchase(Request $request, $item_id)
     {
         $user_id = auth()->id();
         $user = User::find($user_id);
         $item = Item::find($item_id);
+        $type = $request->query('type');
 
-        return view('purchase/index', compact('item', 'user'));
+        return view('purchase/index', compact('item', 'user', 'type'));
+    }
+
+    public function purchased(Request $request)
+    {
+        $payment = $request->input("payment");
     }
 
     public function edit($item_id){

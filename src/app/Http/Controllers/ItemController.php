@@ -7,18 +7,25 @@ use App\Models\Condition;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\User;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 
 use function GuzzleHttp\Promise\all;
 
 class ItemController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth')
+    //         ->only(['index']);
+    // }
+
     public function index(Request $request)
     {
         $user_id = auth()->id();
-        $type = $request->query('type');
+        $type = $request->query('tab');
 
-        if($type == "like"){
+        if($type == "mylist"){
             if (isset($user_id)) {
                 $items = User::find($user_id)->like->all();
                 foreach($items as $key => $item){
@@ -28,7 +35,7 @@ class ItemController extends Controller
                     }
                 }
             } else {
-                $items = null;
+                $items = [];
             }
         }else{
             if (isset($user_id)) {
