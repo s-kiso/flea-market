@@ -37,16 +37,16 @@
                 <ul class="payment-select">
                     <li>
                         @if($type=="convenience")
-                            <button type="button" class="selected"><a href="{{route('purchase.payment',['item_id'=>$item->id, 'type'=>'card']) }}">カード支払い</a></button>
+                            <a href="{{route('purchase.payment',['item_id'=>$item->id, 'type'=>'card']) }}"><button type="button" class="selected">カード支払い</button></a>
                         @elseif($type=="card")
-                            <button type="button" class="selected"><a href="{{route('purchase.payment',['item_id'=>$item->id, 'type'=>'convenience']) }}">コンビニ払い</a></button>
+                            <a href="{{route('purchase.payment',['item_id'=>$item->id, 'type'=>'convenience']) }}"><button type="button" class="selected">コンビニ払い</button></a>
                         @else
-                            <button type="button" class="selected"><a href="{{route('purchase.payment',['item_id'=>$item->id, 'type'=>'convenience']) }}">コンビニ払い</a></button>
+                            <a href="{{route('purchase.payment',['item_id'=>$item->id, 'type'=>'convenience']) }}"><button type="button" class="selected">コンビニ払い</button></a>
                         @endif
                     </li>
                     @if($type==null)
                     <li>
-                        <button type="button" class="selected"><a href="{{route('purchase.payment',['item_id'=>$item->id, 'type'=>'card']) }}">カード支払い</a></button>
+                        <a href="{{route('purchase.payment',['item_id'=>$item->id, 'type'=>'card']) }}"><button type="button" class="selected">カード支払い</button></a>
                     </li>
                     @endif
                 </ul>

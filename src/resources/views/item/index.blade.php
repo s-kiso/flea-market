@@ -8,11 +8,11 @@
 <div class="items-contents">
     <div class="items-heading">
         @if($type == "mylist")
-            <h2 class="items-heading-label"><a href="/">おすすめ</a></h2>
-            <h2 class="items-heading-label-selected"><a href="/?tab=mylist">マイリスト</a></h2>
+            <h2 class="items-heading-label"><a href="{{ route('home', ['search'=>$search]) }}">おすすめ</a></h2>
+            <h2 class="items-heading-label-selected"><a href="{{ route('home', ['tab'=>'mylist', 'search'=>$search]) }}">マイリスト</a></h2>
         @else
-            <h2 class="items-heading-label-selected"><a href="/">おすすめ</a></h2>
-            <h2 class="items-heading-label"><a href="/?tab=mylist">マイリスト</a></h2>
+            <h2 class="items-heading-label-selected"><a href="{{ route('home', ['search'=>$search]) }}">おすすめ</a></h2>
+            <h2 class="items-heading-label"><a href="{{ route('home', ['tab'=>'mylist', 'search'=>$search]) }}">マイリスト</a></h2>
         @endif
     </div>
     <div class="items-list">

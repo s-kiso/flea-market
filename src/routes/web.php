@@ -20,7 +20,6 @@ use App\Http\Controllers\PurchaseController;
 Route::get('/', [ItemController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/?tab=mylist', [MypageController::class, 'index'])->name('mylist');
     Route::get('/mypage/profile', [MypageController::class, 'edit']);
     Route::post('/edit', [MypageController::class, 'edited']);
     Route::get('/sell', [ItemController::class, 'register']);

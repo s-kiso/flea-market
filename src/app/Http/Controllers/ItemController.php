@@ -25,20 +25,21 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         // $params = $request->all();
-        // dd($params);
+        // dd($request);
         $search = $request->query('search');
         $user_id = auth()->id();
-        $type = $request->query('tab');
         $previous_page = url()->previous();
-        // $previous_type = substr($previous_page, strpos($previous_page, 'tab='));
-        dd($previous_page);
+        $type = $request->query('tab');
+        $url = $request->input('url');
+
+        if($url == "/?tab=mylist"){
+                $type = 'mylist';
+            }
 
         if(isset($search)){
-            if (strpos($previous_page, 'tab=mylist') !== false) {
-                $type = 'mylist';
+            if ($type == "mylist") {
                 if (isset($user_id)) {
                     $items = User::find($user_id)->like;
-                    $key = 'name';
                     $items = $items->filter(function($item) use ($search){
                         return strpos($item->name, $search) !== false;
                     });
