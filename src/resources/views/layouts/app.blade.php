@@ -22,8 +22,8 @@
             </div>
             
             <div class="header-search-form">
-                <form action="/products/search" method="get">
-                    <input type="text" name="product_name" value="{{$product_name ?? '' }}" placeholder="なにをお探しですか？" class="header-search-input">
+                <form action="{{ route('home') }}" method="get">
+                    <input type="text" name="search" value="{{$search ?? '' }}" placeholder="なにをお探しですか？" class="header-search-input">
                 </form>
             </div>
             <div class="header-nav">

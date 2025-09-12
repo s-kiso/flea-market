@@ -3,7 +3,7 @@
     /* width=1400でやると自分のpcで横スクロールが必要になるため1200pxで実施 */
     width: 40%;
     text-align: center;
-    margin: 0 auto;
+    margin: 50px auto;
 }
 
 .login-heading {
@@ -43,6 +43,7 @@
     border-radius: 5px;
     border: none;
     margin-top: 40px;
+    cursor: pointer;
 }
 
 .register {

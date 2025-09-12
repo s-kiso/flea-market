@@ -39,7 +39,11 @@
             </div>
         </div>
         <div class="item-purchase-form">
-            <a href="/purchase/:{{ $item->id }}"><button>購入手続きへ</button></a>
+            @if($purchase_check == 'purchased')
+                <button class="item-purchased-button" disabled>Sold</button>
+            @else
+                <a href="/purchase/:{{ $item->id }}"><button class="item-purchase-button">購入手続きへ</button></a>
+            @endif
         </div>
         
         <div class="item-detail">
@@ -75,6 +79,11 @@
             <form action="/item/comment" method="post">
                 @csrf
                 <textarea class="item-comments-textarea" name="comment"></textarea>
+                <div class="form-error">
+                    @error('comment')
+                    {{$message}}
+                    @enderror
+                </div>
                 <button type="submit" class="item-comments-button">コメントを送信する</button>
                 <input  type="hidden" name="id" value="{{ $item->id }}">
             </form>

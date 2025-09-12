@@ -65,7 +65,17 @@
     height: 50px;
 }
 
-.item-purchase-form button{
+.item-purchased-button{
+    height: 100%;
+    width: 100%;
+    color: red;
+    border: none;
+    font-weight: 700;
+    font-size: 25px;
+    border-radius: 4px;
+}
+
+.item-purchase-button{
     height: 100%;
     width: 100%;
     background-color: #FF5555;

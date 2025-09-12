@@ -25,10 +25,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/edit', [MypageController::class, 'edited']);
     Route::get('/sell', [ItemController::class, 'register']);
     Route::post('/sell', [ItemController::class, 'registered']);
-    Route::get('/purchase/:{item_id}', [PurchaseController::class, 'purchase']);
+    Route::get('/purchase/:{item_id}', [PurchaseController::class, 'purchase'])->name('purchase.home');
     Route::post('/purchase/:{item_id}', [PurchaseController::class, 'purchased'])->name('purchase.submit');
     Route::get('/purchase/:{item_id}?type={type}', [PurchaseController::class, 'purchase'])->name('purchase.payment');
     Route::get('/purchase/address/:{item_id}', [PurchaseController::class, 'edit'])->name('address.modify');
+    Route::post('/purchase/address/:{item_id}', [PurchaseController::class, 'edited'])->name('address.modified');
     Route::get('/mypage', [MypageController::class, 'index']);
     Route::post('/item/like', [ItemController::class, 'like']);
     Route::post('/item/comment', [ItemController::class, 'comment']);

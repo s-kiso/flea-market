@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use App\Models\Purchase;
 use App\Models\User;
 
 class MypageController extends Controller
@@ -47,16 +48,17 @@ class MypageController extends Controller
         $type = $request->query('type');
         $user_id = auth()->id();
         $user = User::find($user_id);
-        // dd($user);
 
         if($type == "purchase"){
-            // $purchase_items = User::find($user_id)->purchase->sll()->pivot->item_id;
-            // dd($purchase_items);
-            $items = Item::all();
+            $items = $user->purchase->all();
+            foreach($items as $i => $item){
+                if($item->pivot->condition == "1"){
+                    unset($items[$i]);
+                }
+            }
         }else{
-            $items = Item::where('user_id', $user_id)->get();
+            $items = Item::where('user_id', $user_id)->get()->all();
         }
-        
         return view('profile/index', compact('items', 'user', 'type'));
     }
 

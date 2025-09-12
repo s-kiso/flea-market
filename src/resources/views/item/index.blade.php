@@ -17,12 +17,24 @@
     </div>
     <div class="items-list">
         @foreach ($items as $item)
-        <div class="item-card">
-            <a href=" {{ route('item.detail', ['item_id'=>$item->id]) }}">
-                <img src=" {{ asset('storage/'.$item->image) }}" alt="">
-                <p>{{ $item->name }}</p>
-            </a>
-        </div>
+            @if($item->purchase_check == 'purchased')
+                <div class="item-card-sold">
+                    <a href=" {{ route('item.detail', ['item_id'=>$item->id]) }}">
+                        <div class="item-card-sold-image">
+                            <p class="item-description-sold">sold</p>
+                            <img src=" {{ asset('storage/'.$item->image) }}" alt="">
+                        </div>
+                        <p class="item-name">{{ $item->name }}</p>
+                    </a>
+                </div>
+            @else
+                <div class="item-card">
+                    <a href=" {{ route('item.detail', ['item_id'=>$item->id]) }}">
+                        <img src=" {{ asset('storage/'.$item->image) }}" alt="">
+                        <p>{{ $item->name }}</p>
+                    </a>
+                </div>
+            @endif
         @endforeach
     </div>
 </div>

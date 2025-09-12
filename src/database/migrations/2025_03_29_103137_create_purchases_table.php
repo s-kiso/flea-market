@@ -17,7 +17,10 @@ class CreatePurchasesTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('item_id');
+            $table->string('postal_code');
             $table->string('address');
+            $table->string('building');
+            $table->string('condition');
             $table->timestamps();
         });
     }

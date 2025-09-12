@@ -43,7 +43,7 @@ class Item extends Model
 
     public function purchase()
     {
-        return $this->belongsToMany(User::class, 'purchases');
+        return $this->belongsToMany(User::class, 'purchases')->withPivot('postal_code', 'address', 'building', 'condition');
     }
 }
 

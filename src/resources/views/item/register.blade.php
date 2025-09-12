@@ -14,6 +14,11 @@
     @csrf
         <div class="register-image">
             <h3>商品画像</h3>
+            <div class="form-error">
+                @error('image')
+                {{$message}}
+                @enderror
+            </div>
             <div class="register-image-input">
                 <input type="file" name="image" accept="image/jpeg, image/png">
             </div>
@@ -24,6 +29,11 @@
             <h2 class="register-detail-head">商品の詳細</h2>
             <div class="register-detail-category">
                 <h3>カテゴリー</h3>
+                <div class="form-error">
+                    @error('category')
+                    {{$message}}
+                    @enderror
+                </div>
                 <div class="category-item">
                     <input type="checkbox" name="category[]" value="1" id="fashion"><label for="fashion">ファッション</label>
                     <input type="checkbox" name="category[]" value="2" id="appliance"><label for="appliance">家電</label>
@@ -43,6 +53,11 @@
             </div>
             <div class="register-detail-condition">
                 <h3>商品の状態</h3>
+                <div class="form-error">
+                    @error('condition')
+                    {{$message}}
+                    @enderror
+                </div>
                 <select name="condition">
                     <option value="" hidden>選択してください</option>
                     @foreach($conditions as $condition)
@@ -55,6 +70,11 @@
             <h2 class="register-description-head">商品名と説明</h2>
             <div class="register-description-contents">
                 <h3>商品名</h3>
+                <div class="form-error">
+                    @error('name')
+                    {{$message}}
+                    @enderror
+                </div>
                 <input type="text" name="name">
             </div>
             <div class="register-description-contents">
@@ -63,10 +83,20 @@
             </div>
             <div class="register-description-contents">
                 <h3>商品の説明</h3>
+                <div class="form-error">
+                    @error('description')
+                    {{$message}}
+                    @enderror
+                </div>
                 <textarea name="description"></textarea>
             </div>
             <div class="register-description-contents">
                 <h3>販売価格</h3>
+                <div class="form-error">
+                    @error('price')
+                    {{$message}}
+                    @enderror
+                </div>
                 <input type="number" name="price">
             </div>
         </div>

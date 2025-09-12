@@ -51,16 +51,40 @@
                     @endif
                 </ul>
             </div>
+            <div class="form-error">
+                @error('payment')
+                {{$message}}
+                @enderror
+            </div>
             <div class="address">
                 <div class="address-top">
                     <h3>配送先</h3>
                     <a href="{{ route('address.modify', ['item_id'=>$item->id]) }}" class="address-modify">変更する</a>
                 </div>
                 <div class="address-detail">
-                    <p>〒{{ $user->postal_code }}</p>
-                    <p>{{ $user->address }}</p>
-                    <p>{{ $user->building }}</p>
+                    @if($modified_address == null)
+                        <p>〒{{ $user->postal_code }}</p>
+                        <p>{{ $user->address }}</p>
+                        <p>{{ $user->building }}</p>
+                        <input type="hidden" name="postal_code" value="{{ $user->postal_code }}">
+                        <input type="hidden" name="address" value="{{ $user->address }}">
+                        <input type="hidden" name="building" value="{{ $user->building }}">
+                        <input type="hidden" name="condition" value="0">
+                    @else
+                        〒{{ $modified_address->postal_code }}</p>
+                        <p>{{ $modified_address->address }}</p>
+                        <p>{{ $modified_address->building }}</p>
+                        <input type="hidden" name="postal_code" value="{{ $modified_address->postal_code }}">
+                        <input type="hidden" name="address" value="{{ $modified_address->address }}">
+                        <input type="hidden" name="building" value="{{ $modified_address->building }}">
+                        <input type="hidden" name="condition" value="1">
+                    @endif
                 </div>
+            </div>
+            <div class="form-error">
+                @error('address')
+                {{$message}}
+                @enderror
             </div>
         </div>
         <div class="purchase-right">
@@ -83,7 +107,11 @@
                 </div>
             </div>
             <div class="purchase-form">
-                <button type="submit" class="purchase-form-button">購入する</button>
+                @if($purchase_check == 'purchased')
+                    <button class="purchased-form-button" disabled>Sold</button>
+                @else
+                    <button type="submit" class="purchase-form-button">購入する</button>
+                @endif
             </div>
         </div>
     </div>

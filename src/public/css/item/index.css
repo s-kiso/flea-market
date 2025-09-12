@@ -49,3 +49,41 @@
     text-decoration: none;
     margin: 0;
 }
+
+.item-card-sold{
+    height: 320px;
+    width: 290px;
+    padding: 15px;
+}
+
+.item-card-sold a{
+    text-decoration: none;
+    color: #000000;
+    font-weight: 400;
+}
+
+.item-card-sold-image{
+    height: 290px;
+    width: 290px;
+    position: relative;
+}
+
+.item-card-sold-image img {
+    width: 100%;
+    opacity: 0.2;
+}
+
+.item-name{
+    text-decoration: none;
+    margin: 0;
+}
+
+.item-description-sold{
+    color: red;
+    font-size: 50px;
+    font-weight: 700;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

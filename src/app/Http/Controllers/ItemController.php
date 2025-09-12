@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Http\Requests\ExhibitionRequest;
 use App\Models\Condition;
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Purchase;
 use App\Models\User;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
@@ -22,29 +24,74 @@ class ItemController extends Controller
 
     public function index(Request $request)
     {
+        // $params = $request->all();
+        // dd($params);
+        $search = $request->query('search');
         $user_id = auth()->id();
         $type = $request->query('tab');
+        $previous_page = url()->previous();
+        // $previous_type = substr($previous_page, strpos($previous_page, 'tab='));
+        dd($previous_page);
 
-        if($type == "mylist"){
-            if (isset($user_id)) {
-                $items = User::find($user_id)->like->all();
-                foreach($items as $key => $item){
-                    $seller = $item->user_id;
-                    if($seller == $user_id){
-                        unset($items[$key]);
+        if(isset($search)){
+            if (strpos($previous_page, 'tab=mylist') !== false) {
+                $type = 'mylist';
+                if (isset($user_id)) {
+                    $items = User::find($user_id)->like;
+                    $key = 'name';
+                    $items = $items->filter(function($item) use ($search){
+                        return strpos($item->name, $search) !== false;
+                    });
+                    foreach ($items as $key => $item) {
+                        $seller = $item->user_id;
+                        if ($seller == $user_id) {
+                            unset($items[$key]);
+                        }
                     }
+                } else {
+                    $items = [];
                 }
             } else {
-                $items = [];
+                if (isset($user_id)) {
+                    $items = Item::where('user_id', '<>', $user_id)->orWhereNull('user_id')->where('name', 'LIKE', "%{$search}%")->get();
+                } else {
+                    $items = Item::where('name', 'LIKE', "%{$search}%")->get();
+                }
             }
         }else{
-            if (isset($user_id)) {
-                $items = Item::where('user_id', '<>', $user_id)->orWhereNull('user_id')->get();
+            if ($type == "mylist") {
+                if (isset($user_id)) {
+                    $items = User::find($user_id)->like->all();
+                    foreach ($items as $key => $item) {
+                        $seller = $item->user_id;
+                        if ($seller == $user_id) {
+                            unset($items[$key]);
+                        }
+                    }
+                } else {
+                    $items = [];
+                }
             } else {
-                $items = Item::all();
+                if (isset($user_id)) {
+                    $items = Item::where('user_id', '<>', $user_id)->orWhereNull('user_id')->get();
+                } else {
+                    $items = Item::all();
+                }
             }
         }
-        return view('item/index', compact('items', 'type'));
+        
+        //購入済みかどうか判定
+        foreach($items as $item){
+            $purchase_data = Purchase::where('item_id', $item->id)->get()->all();
+            $purchase_check = null;
+            foreach ($purchase_data as $data) {
+                if ($data->condition == '2') {
+                    $purchase_check = 'purchased';
+                    $item['purchase_check'] = $purchase_check;
+                }
+            }
+        }
+        return view('item/index', compact('items', 'type', 'search'));
     }
 
     public function detail($item_id)
@@ -68,9 +115,16 @@ class ItemController extends Controller
         $comments = $item->comment->all();
         $comments_number = count($comments);
 
-        // dd($comments);
+        //購入済みかどうかのチェック
+        $purchase_data = Purchase::where('item_id', $item_id)->get()->all();
+        $purchase_check = null;
+        foreach($purchase_data as $data){
+            if($data->condition == '2'){
+                $purchase_check = 'purchased';
+            }
+        }
 
-        return view('item/detail', compact('item', 'condition', 'categories', 'likes_number', 'likes_user', 'comments', 'comments_number'));
+        return view('item/detail', compact('item', 'condition', 'categories', 'likes_number', 'likes_user', 'comments', 'comments_number', 'purchase_check'));
     }
 
     public function register()
@@ -79,7 +133,7 @@ class ItemController extends Controller
         return view('item/register', compact('conditions'));
     }
 
-    public function registered(Request $request)
+    public function registered(ExhibitionRequest $request)
     {
         $user_id = auth()->id();
         $filename = $request->image->getClientOriginalName();
@@ -117,7 +171,7 @@ class ItemController extends Controller
         return redirect()->route('item.detail', ['item_id'=>$item_id]);
     }
 
-    public function comment(Request $request)
+    public function comment(CommentRequest $request)
     {
         $user_id = auth()->id();
         $item_id = $request->input('id');
