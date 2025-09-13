@@ -15,8 +15,8 @@
 
     <header class="header">
         <div class="header__inner">
-            <div class="header-logo">
-                <a class="header__logo" href="/">
+            <div class="header__logo">
+                <a href="/">
                 <img src=" {{ asset('storage/'.'header-logo.png') }}" alt="">
                 </a>
             </div>

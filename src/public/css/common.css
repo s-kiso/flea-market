@@ -87,3 +87,33 @@ button,input,select,textarea {
     font-size: 16px;
     text-align: left;
 }
+
+@media (min-width: 768px) and (max-width:850px) {
+
+    .header__inner {
+        justify-content: flex-start;
+    }
+
+    .header__logo{
+        width: 25%;
+        padding: 5px;
+    }
+
+    .header__logo img {
+        height: auto;
+        width: 100%;
+    }
+
+    .header-search-form {
+        width: 40%;
+        margin-left: 20px;
+    }
+    
+    .header-nav{
+        width: 35%;
+        justify-content: center;
+        padding-left: 10px;
+        padding-right: 10px;
+        gap: 10px;
+    }
+}

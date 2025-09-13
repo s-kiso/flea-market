@@ -131,8 +131,8 @@ h4{
     font-weight: 300;
     padding: 10px;
     margin: 10px 0 25px 0;
+    overflow-wrap: anywhere;
 }
-
 
 .item-information-block{
     display: flex;
@@ -172,4 +172,22 @@ h4{
 
 .form-error{
     margin-bottom: 40px;
+}
+
+@media (min-width: 768px) and (max-width:850px) {
+    .detail-contents{
+        margin: 50px 10px;
+    }
+
+    .detail-left{
+        padding: 10px 20px;
+    }
+
+    .detail-right{
+        padding: 10px 20px;
+    }   
+
+    .item-information-block{
+        flex-wrap: wrap;
+    }
 }

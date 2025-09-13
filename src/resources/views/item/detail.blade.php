@@ -72,7 +72,9 @@
                     <div class="user_image"><img src="{{ asset('storage/'.$comment->image) }}" alt=""></div>
                     <p>{{ $comment->name }}</p>
                 </div>
-                <div class="item-comments-main">{{ $comment->pivot->comment }}</div>
+                <div class="item-comments-main">
+                    <p>{{ $comment->pivot->comment }}</p>
+                </div>
             @endforeach
                 
             <h4>商品へのコメント</h4>

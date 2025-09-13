@@ -53,7 +53,10 @@ class ItemController extends Controller
                 }
             } else {
                 if (isset($user_id)) {
-                    $items = Item::where('user_id', '<>', $user_id)->orWhereNull('user_id')->where('name', 'LIKE', "%{$search}%")->get();
+                    $items = Item::where('user_id', '<>', $user_id)->orWhereNull('user_id')->get();
+                    $items = $items->filter(function ($item) use ($search) {
+                        return strpos($item->name, $search) !== false;
+                    });
                 } else {
                     $items = Item::where('name', 'LIKE', "%{$search}%")->get();
                 }

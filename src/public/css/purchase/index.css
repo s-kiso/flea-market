@@ -147,6 +147,7 @@ h3{
     padding: 50px 30px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid #000000;
 }
 
@@ -162,6 +163,7 @@ h3{
     padding: 50px 30px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .purchase-form-button{
@@ -192,4 +194,35 @@ h3{
 
 .form-error{
     margin: 10px 0 0 40px;
+}
+
+@media (min-width: 768px) and (max-width:850px) {
+    .purchase-contents{
+        margin: 70px 20px;
+    }
+
+    .purchase-left{
+        width: 55%;
+    }
+
+    .purchase-right{
+        width: 45%;
+        margin-left: 50px;
+    }
+
+    .summary-price{
+        padding: 50px 15px;
+    }
+
+    .summary-payment{
+        padding: 50px 15px;
+    }
+
+    .summary-label{
+        font-size: 16px;
+    }
+
+    .summary-main{
+        font-size: 20px;
+    }
 }
