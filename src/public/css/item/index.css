@@ -41,8 +41,13 @@
     font-weight: 400;
 }
 
+.item-card-image{
+    height: 290px;
+}
+
 .item-card img {
     width: 100%;
+    max-height: 290px;
 }
 
 .item-card p{
@@ -71,6 +76,7 @@
 .item-card-sold-image img {
     width: 100%;
     opacity: 0.2;
+    max-height: 290px;
 }
 
 .item-name{

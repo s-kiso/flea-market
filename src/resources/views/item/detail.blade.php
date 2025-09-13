@@ -78,7 +78,7 @@
             <h4>商品へのコメント</h4>
             <form action="/item/comment" method="post">
                 @csrf
-                <textarea class="item-comments-textarea" name="comment"></textarea>
+                <textarea class="item-comments-textarea" name="comment">{{ old('comment') }}</textarea>
                 <div class="form-error">
                     @error('comment')
                     {{$message}}

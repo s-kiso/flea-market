@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\ExhibitionRequest;
+use App\Models\Category;
 use App\Models\Condition;
 use Illuminate\Http\Request;
 use App\Models\Item;
@@ -24,8 +25,6 @@ class ItemController extends Controller
 
     public function index(Request $request)
     {
-        // $params = $request->all();
-        // dd($request);
         $search = $request->query('search');
         $user_id = auth()->id();
         $previous_page = url()->previous();
@@ -131,7 +130,8 @@ class ItemController extends Controller
     public function register()
     {
         $conditions = Condition::all();
-        return view('item/register', compact('conditions'));
+        $categories = Category::all();
+        return view('item/register', compact('conditions', 'categories'));
     }
 
     public function registered(ExhibitionRequest $request)

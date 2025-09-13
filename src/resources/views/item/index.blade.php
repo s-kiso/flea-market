@@ -30,7 +30,9 @@
             @else
                 <div class="item-card">
                     <a href=" {{ route('item.detail', ['item_id'=>$item->id]) }}">
-                        <img src=" {{ asset('storage/'.$item->image) }}" alt="">
+                        <div class="item-card-image">
+                            <img src=" {{ asset('storage/'.$item->image) }}" alt="">
+                        </div>
                         <p>{{ $item->name }}</p>
                     </a>
                 </div>

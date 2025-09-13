@@ -22,7 +22,7 @@
     height: 30px;
     border: 1px solid #5F5F5F;
     border-radius: 4px;
-    margin: 5px 0 20px 0;
+    margin: 5px 0;
 }
 
 .form-label {
@@ -50,6 +50,11 @@
     font-weight: 400px;
     font-size: 14px;
     margin-top: 20px;
+    color: #0073cc;
+}
+
+.form-error{
+    margin-bottom: 20px;
 }
 
 /* メディアクエリ、タブレットとpcで変更したい部分だけ書けばOK? */

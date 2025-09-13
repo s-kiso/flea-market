@@ -41,11 +41,6 @@
         <div class="form-item">
             <label class="form-label">確認用パスワード</label>
             <input type="password" class="form-input" name="password_confirmation">
-            <div class="form-error">
-                @error('password')
-                {{$message}}
-                @enderror
-            </div>
         </div>
         <div class="form-submit">
             <button type="submit" class="form-button">登録する</button>

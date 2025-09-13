@@ -13,30 +13,30 @@
         @csrf
         <div class="form-item">
             <label class="form-label">郵便番号</label>
+            <input type="text" class="form-input" name="postal_code" value="{{ old('postal_code') }}">
             <div class="form-error">
                 @error('postal_code')
                 {{$message}}
                 @enderror
             </div>
-            <input type="text" class="form-input" name="postal_code" value="{{ old('postal_code') }}">
         </div>
         <div class="form-item">
             <label class="form-label">住所</label>
+            <input type="text" class="form-input" name="address" value="{{ old('address') }}">
             <div class="form-error">
                 @error('address')
                 {{$message}}
                 @enderror
             </div>
-            <input type="text" class="form-input" name="address" value="{{ old('address') }}">
         </div>
         <div class="form-item">
             <label class="form-label">建物名</label>
+            <input type="text" class="form-input" name="building" value="{{ old('building') }}">
             <div class="form-error">
                 @error('building')
                 {{$message}}
                 @enderror
             </div>
-            <input type="text" class="form-input" name="building" value="{{ old('building') }}">
         </div>
         <div class="form-submit">
             <input type="hidden" name="type" value="{{ $type }}">

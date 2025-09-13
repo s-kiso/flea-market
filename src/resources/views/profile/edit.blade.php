@@ -22,24 +22,30 @@
         
         <div class="form-item">
             <label class="form-label">ユーザー名</label>
-            <input type="text" class="form-input" name="name" value="{{ Auth::user()->name }}">
+            <input type="text" class="form-input" name="name" value="{{ old("name", Auth::user()->name) }}">
             <div class="form-error">
                 @error('name')
                 {{$message}}
                 @enderror
             </div>
         </div>
+        
         <div class="form-item">
             <label class="form-label">郵便番号</label>
-            <input type="text" class="form-input" name="postal_code" value="{{ old('postal_code') }}">
+            <input type="text" class="form-input" name="postal_code" value="{{ old("postal_code", Auth::user()->postal_code) }}">
+            <div class="form-error">
+                @error('postal_code')
+                {{$message}}
+                @enderror
+            </div>
         </div>
         <div class="form-item">
             <label class="form-label">住所</label>
-            <input type="text" class="form-input" name="address" value="{{ old('address') }}">
+            <input type="text" class="form-input" name="address" value="{{ old("address", Auth::user()->address) }}">
         </div>
         <div class="form-item">
             <label class="form-label">建物名</label>
-            <input type="text" class="form-input" name="building" value="{{ old('building') }}">
+            <input type="text" class="form-input" name="building" value="{{ old("building", Auth::user()->building) }}">
         </div>
         <div class="form-submit">
             <button type="submit" class="form-button">更新する</button>

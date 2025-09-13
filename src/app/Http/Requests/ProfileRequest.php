@@ -25,7 +25,8 @@ class ProfileRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'image' => ['mimes:png, jpeg']
+            'image' => ['mimes:png, jpeg'],
+            'postal_code' => ['regex:/^[0-9]{3}-[0-9]{4}$/'],
         ];
     }
 
@@ -33,7 +34,8 @@ class ProfileRequest extends FormRequest
     {
         return [
             'name.required' => 'お名前を入力してください',
-            'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください'
+            'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
+            'postal_code.regex' => '郵便番号は123-4567の形で入力してください',
         ];
     }
 }

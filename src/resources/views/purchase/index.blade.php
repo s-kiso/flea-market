@@ -50,12 +50,13 @@
                     </li>
                     @endif
                 </ul>
+                <div class="form-error">
+                    @error('payment')
+                    {{$message}}
+                    @enderror
+                </div>
             </div>
-            <div class="form-error">
-                @error('payment')
-                {{$message}}
-                @enderror
-            </div>
+            
             <div class="address">
                 <div class="address-top">
                     <h3>配送先</h3>
@@ -80,11 +81,11 @@
                         <input type="hidden" name="condition" value="1">
                     @endif
                 </div>
-            </div>
-            <div class="form-error">
-                @error('address')
-                {{$message}}
-                @enderror
+                <div class="form-error">
+                    @error('address')
+                    {{$message}}
+                    @enderror
+                </div>
             </div>
         </div>
         <div class="purchase-right">
