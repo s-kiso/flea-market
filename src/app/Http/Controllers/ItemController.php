@@ -17,12 +17,6 @@ use function GuzzleHttp\Promise\all;
 
 class ItemController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth')
-    //         ->only(['index']);
-    // }
-
     public function index(Request $request)
     {
         $search = $request->query('search');
@@ -82,7 +76,7 @@ class ItemController extends Controller
                 }
             }
         }
-        
+
         //購入済みかどうか判定
         foreach($items as $item){
             $purchase_data = Purchase::where('item_id', $item->id)->get()->all();
@@ -100,8 +94,6 @@ class ItemController extends Controller
     public function detail($item_id)
     {
         $user_id = auth()->id();
-        // $user = User::find($user_id);
-
         $item = Item::find($item_id);
         $condition = $item->condition->name;
         $categories = $item->category;
@@ -118,7 +110,7 @@ class ItemController extends Controller
         $comments = $item->comment->all();
         $comments_number = count($comments);
 
-        //購入済みかどうかのチェック
+        //購入済みかどうか判定
         $purchase_data = Purchase::where('item_id', $item_id)->get()->all();
         $purchase_check = null;
         foreach($purchase_data as $data){
@@ -153,7 +145,7 @@ class ItemController extends Controller
         $register_data->description = $request->input('description');
         $register_data->image = $image;
         $register_data->save();
-        
+
         $item_id = $register_data->id;
         Item::find($item_id)->category()->attach($category);
 

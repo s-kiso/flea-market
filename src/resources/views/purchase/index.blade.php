@@ -56,7 +56,7 @@
                     @enderror
                 </div>
             </div>
-            
+
             <div class="address">
                 <div class="address-top">
                     <h3>配送先</h3>

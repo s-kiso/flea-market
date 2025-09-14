@@ -25,7 +25,6 @@
                 <form action="{{ route('home') }}" method="get">
                     <input type="hidden" name="url" value="{{ str_replace(url('/'),"",request()->fullUrl()) }}">
                     <input type="text" name="search" value="{{$search ?? '' }}" placeholder="なにをお探しですか？" class="header-search-input">
-                    {{-- <input type="submit" value="検索" class="products__input-submit"> --}}
                 </form>
             </div>
             <div class="header-nav">

@@ -4,6 +4,7 @@ init:
 	docker-compose exec php cp .env.example .env
 	docker-compose exec php php artisan key:generate
 	docker-compose exec php php artisan storage:link
+
+fresh:
 	docker-compose exec php php artisan migrate
 	docker-compose exec php php artisan db:seed
-	docker-compose exec php chmod -R 777 storage bootstrap/cache

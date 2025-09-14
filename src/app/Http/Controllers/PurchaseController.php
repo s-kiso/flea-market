@@ -49,7 +49,6 @@ class PurchaseController extends Controller
             }
         }
 
-        //purchaseテーブルの中にcondition=1のデータがある場合削除
         $registered_data = Purchase::where([
             ['item_id', '=', $item_id],
             ['user_id', '<>', $user_id],
@@ -86,12 +85,12 @@ class PurchaseController extends Controller
         }else{
             $type = null;
         }
-        
+
         return view('purchase/edit', compact('item_id', 'type'));
     }
 
     public function edited(AddressRequest $request, $item_id){
-        
+
         $type = $request->input('type');
         $postal_code = $request->input('postal_code');
         $address = $request->input('address');
@@ -102,13 +101,9 @@ class PurchaseController extends Controller
             ['item_id', '=', $item_id],
             ['user_id', '=', $user_id],
         ])->first();
-        // dd($registered_address);
 
         if(!isset($registered_address)){
-            
-            //condition1→変更済み（未購入）、condition2→購入済み
 
-            //未購入の際は新規レコード作成
             $delivery_address = new Purchase();
             $delivery_address->user_id = $user_id;
             $delivery_address->item_id = $item_id;
@@ -120,8 +115,6 @@ class PurchaseController extends Controller
         }else{
             $address_condition = $registered_address->condition;
             if ($address_condition == 1) {
-                // $check = Item::find($item_id)->purchase;
-                // dd($check);
                 $registered_address->postal_code = $postal_code;
                 $registered_address->address = $address;
                 $registered_address->building = $building;

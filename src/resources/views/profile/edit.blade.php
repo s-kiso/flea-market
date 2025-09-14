@@ -19,7 +19,7 @@
                 @enderror
             </div>
         </div>
-        
+
         <div class="form-item">
             <label class="form-label">ユーザー名</label>
             <input type="text" class="form-input" name="name" value="{{ old("name", Auth::user()->name) }}">
@@ -29,7 +29,7 @@
                 @enderror
             </div>
         </div>
-        
+
         <div class="form-item">
             <label class="form-label">郵便番号</label>
             <input type="text" class="form-input" name="postal_code" value="{{ old("postal_code", Auth::user()->postal_code) }}">

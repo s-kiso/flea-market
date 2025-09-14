@@ -1,6 +1,5 @@
 .register-contents {
     max-width: 1540px;
-    /* width=1400でやると自分のpcで横スクロールが必要になるため1200pxで実施 */
     width: 40%;
     text-align: center;
     margin: 50px auto;

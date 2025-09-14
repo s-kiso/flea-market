@@ -25,7 +25,7 @@ class MypageController extends Controller
             $filename = $request->image->getClientOriginalName();
             $image = $request->image->storeAs('', $filename, 'public');
         };
-        
+
         $name = $request->input('name');
         $address = $request->input('address');
         $postal_code = $request->input('postal_code');
