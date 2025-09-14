@@ -45,11 +45,11 @@ class MypageController extends Controller
 
     public function index(Request $request){
 
-        $type = $request->query('type');
+        $type = $request->query('tab');
         $user_id = auth()->id();
         $user = User::find($user_id);
 
-        if($type == "purchase"){
+        if($type == "buy"){
             $items = $user->purchase->all();
             foreach($items as $i => $item){
                 if($item->pivot->condition == "1"){

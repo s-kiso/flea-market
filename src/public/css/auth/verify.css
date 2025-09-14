@@ -1,0 +1,53 @@
+.mail_notice--div{
+    margin: 20vh auto 0 auto;
+    text-align: center;
+}
+
+.mail_notice--header{
+    padding: 10px 0;
+}
+
+.notice_header--p{
+    color: #000000;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.notice_resend--p{
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background: #3cb371;
+    color: #fff;
+    font-weight: bold;
+}
+
+.mail_verify--link{
+    margin: 40px 0;;
+}
+
+.mail_verify--button{
+    color: #000000;
+    font-size: 24px;
+    font-weight: 700;
+    background-color: #d9d9d9;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 15px 30px;
+    cursor: pointer;
+}
+
+.mail_resend--form{
+    margin: 40px 0;;
+}
+
+.mail_resend--button{
+    background-color: #ffffff;
+    color: #0073cc;
+    border: none;
+    font-size: 20px;
+    font-weight: 400;
+    cursor: pointer;
+}

@@ -12,12 +12,12 @@
         <a href="/mypage/profile" class="user-edit">プロフィールを編集</a>
     </div>
     <div class="items-heading">
-    @if($type == "purchase")
-        <h3 class="items-heading-label"><a href="/mypage">出品した商品</a></h3>
-        <h3 class="items-heading-label-selected"><a href="/mypage?type=purchase">購入した商品</a></h3>
+    @if($type == "buy")
+        <h3 class="items-heading-label"><a href="/mypage?tab=sell">出品した商品</a></h3>
+        <h3 class="items-heading-label-selected"><a href="/mypage?tab=buy">購入した商品</a></h3>
     @else
-        <h3 class="items-heading-label-selected"><a href="/mypage">出品した商品</a></h3>
-        <h3 class="items-heading-label"><a href="/mypage?type=purchase">購入した商品</a></h3>
+        <h3 class="items-heading-label-selected"><a href="/mypage?tab=sell">出品した商品</a></h3>
+        <h3 class="items-heading-label"><a href="/mypage?tab=buy">購入した商品</a></h3>
     @endif
     </div>
     <div class="items-list">
