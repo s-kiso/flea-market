@@ -82,7 +82,7 @@ class ItemController extends Controller
             $purchase_data = Purchase::where('item_id', $item->id)->get()->all();
             $purchase_check = null;
             foreach ($purchase_data as $data) {
-                if ($data->condition == '2') {
+                if ($data->condition <> '1') {
                     $purchase_check = 'purchased';
                     $item['purchase_check'] = $purchase_check;
                 }
@@ -114,7 +114,7 @@ class ItemController extends Controller
         $purchase_data = Purchase::where('item_id', $item_id)->get()->all();
         $purchase_check = null;
         foreach($purchase_data as $data){
-            if($data->condition == '2'){
+            if($data->condition <> '1'){
                 $purchase_check = 'purchased';
             }
         }

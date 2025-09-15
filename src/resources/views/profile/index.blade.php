@@ -15,24 +15,45 @@
     @if($type == "buy")
         <h3 class="items-heading-label"><a href="/mypage?tab=sell">出品した商品</a></h3>
         <h3 class="items-heading-label-selected"><a href="/mypage?tab=buy">購入した商品</a></h3>
+        <h3 class="items-heading-label"><a href="/mypage?tab=deal">取引中の商品</a></h3>
+    @elseif($type == "deal")
+        <h3 class="items-heading-label"><a href="/mypage?tab=sell">出品した商品</a></h3>
+        <h3 class="items-heading-label"><a href="/mypage?tab=buy">購入した商品</a></h3>
+        <h3 class="items-heading-label-selected"><a href="/mypage?tab=deal">取引中の商品</a></h3>
     @else
         <h3 class="items-heading-label-selected"><a href="/mypage?tab=sell">出品した商品</a></h3>
         <h3 class="items-heading-label"><a href="/mypage?tab=buy">購入した商品</a></h3>
+        <h3 class="items-heading-label"><a href="/mypage?tab=deal">取引中の商品</a></h3>
     @endif
     </div>
     <div class="items-list">
-        @foreach ($items as $item)
-        <a href="{{ route('item.detail', ['item_id'=>$item->id]) }}">
-            <div class="item-card">
-                <div class="item-card-image">
-                    <img src=" {{ asset('storage/'.$item->image) }}" alt="">
-                </div>
-                <div class="item-card-label">
-                    <p>{{ $item->name }}</p>
-                </div>
-            </div>
-        </a>
-        @endforeach
+        @if($type == "deal")
+            @foreach ($items as $item)
+                <a href="{{ route('item.deal', ['item_id'=>$item->id]) }}">
+                    <div class="item-card">
+                        <div class="item-card-image">
+                            <img src=" {{ asset('storage/'.$item->image) }}" alt="">
+                        </div>
+                        <div class="item-card-label">
+                            <p>{{ $item->name }}</p>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+        @else
+            @foreach ($items as $item)
+                <a href="{{ route('item.detail', ['item_id'=>$item->id]) }}">
+                    <div class="item-card">
+                        <div class="item-card-image">
+                            <img src=" {{ asset('storage/'.$item->image) }}" alt="">
+                        </div>
+                        <div class="item-card-label">
+                            <p>{{ $item->name }}</p>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+        @endif
     </div>
 </div>
 @endsection

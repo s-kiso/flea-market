@@ -34,6 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [MypageController::class, 'index']);
     Route::get('/mypage/profile', [MypageController::class, 'edit']);
     Route::post('/edit', [MypageController::class, 'edited']);
+    Route::get('/deal/:{item_id}', [PurchaseController::class, 'deal'])->name('item.deal');
+    Route::post('/deal/:{item_id}', [PurchaseController::class, 'dealing'])->name('deal.submit');
 });
 
 

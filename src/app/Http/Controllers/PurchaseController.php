@@ -28,7 +28,7 @@ class PurchaseController extends Controller
         $purchase_data = Purchase::where('item_id', $item_id)->get()->all();
         $purchase_check = null;
         foreach ($purchase_data as $data) {
-            if ($data->condition == '2') {
+            if ($data->condition <> '1') {
                 $purchase_check = 'purchased';
             }
         }
@@ -41,15 +41,15 @@ class PurchaseController extends Controller
         $condition = $request->input('condition');
         $user_id = auth()->id();
 
-        //購入済みかどうかのチェック
+        //購入済みかどうかのチェック（この間に購入中になった場合購入画面に戻す）
         $purchase_data = Purchase::where('item_id', $item_id)->get()->all();
         foreach ($purchase_data as $data) {
-            if ($data->condition == '2') {
+            if ($data->condition <> '1') {
                 return redirect()->route('purchase.home', ['item_id' => $item_id]);
             }
         }
 
-        $registered_data = Purchase::where([
+        Purchase::where([
             ['item_id', '=', $item_id],
             ['user_id', '<>', $user_id],
         ])->delete();
@@ -128,4 +128,26 @@ class PurchaseController extends Controller
             return redirect()->route('purchase.payment', ['item_id' => $item_id, 'type' => $type])->with(compact('postal_code', 'address', 'building', 'item_id'));
         }
     }
+
+    public function deal($item_id){
+        $item = Item::find($item_id);
+        $purchase_info = Item::find($item_id)->purchase->first();
+        $user_id = auth()->id();
+
+        $seller = User::find($item->user_id);
+        $buyer = User::find($purchase_info->pivot->user_id);
+
+        if($item->user_id == $user_id){
+            $user_type = "seller";
+        }else{
+            $user_type = "buyer";
+        }
+        dd($user_type);
+
+
+
+        return view('purchase/deal', compact('item', 'seller', 'buyer', 'user_type'));
+    }
 }
+
+// condition=1:住所変更済み、未購入。2:購入済み、取引中。3:購入済み、取引終了
