@@ -133,6 +133,7 @@ class PurchaseController extends Controller
         $item = Item::find($item_id);
         $purchase_info = Item::find($item_id)->purchase->first();
         $user_id = auth()->id();
+        $user = User::find($user_id);
 
         $seller = User::find($item->user_id);
         $buyer = User::find($purchase_info->pivot->user_id);
@@ -142,11 +143,34 @@ class PurchaseController extends Controller
         }else{
             $user_type = "buyer";
         }
-        dd($user_type);
 
+        //取引中の全商品を抽出
+        $sell_items = Item::where('user_id', $user_id)->get()->all();
+        foreach ($sell_items as $i => $sell_item) {
+            $purchase_data = $sell_item->purchase->all();
+            if ($purchase_data == null) {
+                unset($sell_items[$i]);
+            } else {
+                foreach ($purchase_data as $data) {
+                    if ($data->pivot->condition <> "2") {
+                        unset($sell_items[$i]);
+                    }elseif($data->pivot->item_id == $item_id){
+                        unset($sell_items[$i]);
+                    }
+                }
+            }
+        }
+        $purchase_items = $user->purchase->all();
+        foreach ($purchase_items as $i => $purchase_item) {
+            if ($purchase_item->pivot->condition <> "2") {
+                unset($purchase_items[$i]);
+            }elseif($purchase_item->id == $item_id){
+                unset($purchase_items[$i]);
+            }
+        }
+        $dealing_items = array_merge($sell_items, $purchase_items);
 
-
-        return view('purchase/deal', compact('item', 'seller', 'buyer', 'user_type'));
+        return view('purchase/deal', compact('dealing_items', 'item', 'seller', 'buyer', 'user_type'));
     }
 }
 

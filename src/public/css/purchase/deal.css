@@ -1,0 +1,23 @@
+.deal-contents{
+    display: flex;
+}
+
+.deal-left{
+    width: 20%;
+    background-color: #868686;
+    text-align: center;
+}
+
+.deal-left-top{
+    font-weight: 700;
+    font-size: 30px;
+    color: #FFFFFF;
+    /* padding: 10px; */
+}
+
+.deal-left-contents li{
+    font-weight: 400;
+    background-color: #EEEFEB;
+    width: 80%;
+    margin: 10%;
+}
