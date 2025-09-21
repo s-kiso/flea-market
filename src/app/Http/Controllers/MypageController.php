@@ -8,9 +8,7 @@ use App\Http\Requests\ProfileRequest;
 use App\Models\Deal;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
-use App\Models\Purchase;
 use App\Models\User;
-use Carbon\Carbon;
 
 class MypageController extends Controller
 {
@@ -54,7 +52,6 @@ class MypageController extends Controller
 
         //未読のメッセージ数を数える
         $sell_items = Item::where('user_id', $user_id)->get()->all();
-        // dd($sell_items);
         foreach ($sell_items as $i => $item) {
             $purchase_data = $item->purchase->all();
             if ($purchase_data == null) {
@@ -111,9 +108,7 @@ class MypageController extends Controller
             }
         }elseif($type == "deal"){
             $items = array_merge($sell_items, $purchase_items);
-            
             $updated_at = array_map("strtotime", array_column($items, 'newest_message_time'));
-            // dd($updated_at);
             array_multisort($updated_at, SORT_DESC, $items);
         }else{
             $items = Item::where('user_id', $user_id)->get()->all();
@@ -126,7 +121,7 @@ class MypageController extends Controller
                 }
             }
         }
-        
+
         if(isset($user->rate)){
             $rate = round($user->rate / $user->rate_total);
         }else{

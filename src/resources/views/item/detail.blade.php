@@ -44,7 +44,7 @@
                 <a href="/purchase/:{{ $item->id }}"><button class="item-purchase-button">購入手続きへ</button></a>
             @endif
         </div>
-        
+
         <div class="item-detail">
             <h3>商品説明</h3>
             <p>{{ $item->description }}</p>
@@ -75,7 +75,7 @@
                     <p>{{ $comment->pivot->comment }}</p>
                 </div>
             @endforeach
-                
+
             <h4>商品へのコメント</h4>
             <form action="/item/comment" method="post">
                 @csrf

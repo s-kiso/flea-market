@@ -20,7 +20,7 @@
                 <img src=" {{ asset('storage/'.'header-logo.png') }}" alt="">
                 </a>
             </div>
-            
+
             <div class="header-search-form">
                 <form action="{{ route('home') }}" method="get">
                     <input type="hidden" name="url" value="{{ str_replace(url('/'),"",request()->fullUrl()) }}">

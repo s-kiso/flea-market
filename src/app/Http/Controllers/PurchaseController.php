@@ -11,9 +11,7 @@ use App\Models\Deal;
 use App\Models\Item;
 use App\Models\Purchase;
 use App\Models\User;
-use Facade\Ignition\QueryRecorder\Query;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DealEnd;
 
@@ -48,7 +46,7 @@ class PurchaseController extends Controller
         $condition = $request->input('condition');
         $user_id = auth()->id();
 
-        //購入済みかどうかのチェック（この間に購入中になった場合購入画面に戻す）
+        //購入済みかどうかのチェック
         $purchase_data = Purchase::where('item_id', $item_id)->get()->all();
         foreach ($purchase_data as $data) {
             if ($data->condition <> '1') {
@@ -147,6 +145,7 @@ class PurchaseController extends Controller
 
         $seller = User::find($item->user_id);
         $buyer = User::find($purchase_info->pivot->user_id);
+
         //メッセージのやり取りを抽出
         $messages = Deal::where('item_id', $item_id)->orderBy('id', 'asc')->get();
 
@@ -175,7 +174,6 @@ class PurchaseController extends Controller
         //未読のメッセージ数を数える
         $sell_items = Item::where('user_id', $user_id)->get()->all();
         $unread_number = 0;
-        // dd($sell_items);
         foreach ($sell_items as $i => $sell_item) {
             $purchase_data = $sell_item->purchase->all();
             if ($purchase_data == null) {
@@ -227,11 +225,8 @@ class PurchaseController extends Controller
             }
         }
         $dealing_items = array_merge($sell_items, $purchase_items);
-
         $updated_at = array_map("strtotime", array_column($dealing_items, 'newest_message_time'));
         array_multisort($updated_at, SORT_DESC, $dealing_items);
-
-        
 
         return view('purchase/deal', compact('dealing_items', 'item', 'my_user', 'client_user', 'user_type', 'messages', 'edit_id', 'edit_type', 'condition'));
     }
@@ -267,11 +262,6 @@ class PurchaseController extends Controller
             $buyer->update();
             Item::find($item_id)->purchase()->sync([$purchase_user_id => ['condition' => "4"]]);
         }
-
-        // $purchase_data = Item::find($item_id)->purchase->first();
-        // $user_id = $purchase_data->pivot->user_id;
-
-        // Item::find($item_id)->purchase()->sync([$user_id => ['condition' => "3"]]);
 
         return redirect()->route('home');
     }
@@ -342,6 +332,3 @@ class PurchaseController extends Controller
     }
 
 }
-
-// condition=1:住所変更済み、未購入。2:購入済み、取引中。3:購入済み、取引終了
-// check=1:未読, check=2:既読
