@@ -1,9 +1,10 @@
 .deal-contents{
     display: flex;
+    min-height: calc(100vh - 50px);
 }
 
 .deal-left{
-    width: 20%;
+    width: 25%;
     background-color: #868686;
     text-align: center;
 }
@@ -12,12 +13,453 @@
     font-weight: 700;
     font-size: 30px;
     color: #FFFFFF;
-    /* padding: 10px; */
+    margin: 20px 0 50px 0;
 }
 
 .deal-left-contents li{
     font-weight: 400;
     background-color: #EEEFEB;
     width: 80%;
-    margin: 10%;
+    margin: 8%;
+    font-size: 20px;
+    padding: 2%;
+    border-radius: 4px;
+    position: relative;
+}
+
+.item-card-unread-number{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transform: translate(-50%,-50%);
+    background-color: #FF0000;
+    color: #FFFFFF;
+    border-radius: 50%;
+    padding-bottom: 3px;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    box-sizing: border-box;
+}
+
+.deal-right{
+    width: 100%;
+}
+
+.deal-header{
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #5F5F5F;
+}
+
+.client-img{
+    width: 100px;
+    height: 100px;
+}
+
+.client-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.deal-header h2{
+    font-weight: 700;
+    font-size: 36px;
+    margin-left: 30px;
+}
+
+.deal-submit-button{
+    margin-left: auto;
+    background-color: #ff8282;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 20px;
+    border: 1px solid #FF8282;
+    border-radius: 30px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.item-detail{
+    padding: 20px 30px;
+    display: flex;
+    border-bottom: 2px solid #5F5F5F;
+}
+
+.item-img{
+    width: 200px;
+    height: 200px;
+}
+
+.item-img img{
+    width: 100%;
+}
+
+.item-info{
+    margin: 30px 0 0 30px;
+}
+
+.item-name{
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.item-price{
+    font-size: 32px;
+}
+
+.deal-chat{
+    padding: 20px 30px;
+    min-height: 50px;
+}
+
+.my-chat{
+    text-align: end;
+}
+
+.my-info{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+.chat-name{
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.chat-image{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.my-message{
+    margin: 10px;
+    text-align: end;
+}
+
+.my-chat-message-main{
+    background-color: #D9D9D9;
+    width: 40%;
+    margin-left: auto;
+    padding: 10px;
+    text-align: left;
+    font-size: 18px;
+    overflow-wrap: anywhere;
+}
+
+.chat-modify-button{
+    width: 40%;
+    margin-left: auto;
+}
+
+.chat-message-image{
+    max-width: calc(40% + 20px);
+    padding: 10px 0;
+}
+
+.edit-image{
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.edit-image img{
+    width: calc(40% + 20px);
+    padding: 10px 0;
+    opacity: 0.2;
+}
+
+.edit-file-label{
+    text-align: center;
+    color: #FF5555;
+    border: 2px solid #FF5555;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 10px 15px;
+    display: inline-block;
+    font-weight: 700;
+    font-size: 24px;
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    left: calc(80% - 10px);
+    transform: translate(-50%,-50%);
+    background-color: #FFFFFF;
+}
+
+.edit-file-input{
+    display: none;
+}
+
+.chat-modify-textarea{
+    width: calc(40% + 20px);
+    margin-left: auto;
+    padding: 10px;
+    text-align: left;
+    font-size: 18px;
+    color: #000000;
+    height: 150px;
+    border: 2px solid #000000;
+}
+
+.edit-submit-button{
+    display: none;
+}
+
+.edit-button-label{
+    margin: 10px 0;
+    color: #5F5F5F;
+    filter:drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.edit-buttons{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+.client-chat{
+    text-align: left;
+}
+
+.client-info{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.client-message{
+    margin: 10px;
+    text-align: left;
+}
+
+.client-chat-message-main{
+    background-color: #D9D9D9;
+    width: 40%;
+    padding: 10px;
+    text-align: left;
+    font-size: 18px;
+    overflow-wrap: anywhere;
+}
+
+.deal-chat-form{
+    padding: 20px;
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.send-message{
+    width: 70%;
+    height: 40px;
+    padding: 5px 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+    margin-left: 30px;
+}
+
+.send-file-label{
+    text-align: center;
+    color: #FF5555;
+    border: 2px solid #FF5555;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 10px 15px;
+    display: inline-block;
+    font-weight: 700;
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.send-file-input{
+    display: none;
+}
+
+.chat-submit-button{
+    height: 30px;
+}
+
+.form-error{
+    margin: 10px 0 0 50px;
+}
+
+.form-error-modify{
+    color: red;
+    font-size: 16px;
+    text-align: left;
+    width: calc(40% + 20px);
+    margin-left: auto;
+    padding: 0 0 10px 20px;
+}
+
+
+.popover-content{
+    width: 600px;
+    background-color: #FDFCE6;
+    height: 340px;
+    margin-left: 50%;
+    translate: -50%, -50%;
+    margin: auto;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border: 1px solid #000000;
+    border-radius: 15px;
+}
+
+.popover-content-fix{
+    width: 600px;
+    background-color: #FDFCE6;
+    height: 340px;
+    border: 1px solid #000000;
+    border-radius: 15px;
+    position: fixed;
+    inset: 0;
+    margin: auto;
+}
+
+.popover-complete{
+    font-size: 35px;
+    padding: 20px;
+    border-bottom: 1px solid #000000;
+}
+
+.popover-submit-form p{
+    padding: 20px;
+    font-size: 20px;
+    color: #868686;
+}
+
+.popover-rate{
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    gap: 10px;
+    border-bottom: 1px solid #000000;
+    padding-bottom: 20px;
+}
+
+.rate-stars{
+    display: none;
+}
+
+.star{
+    color: #D9D9D9;
+    cursor: pointer;
+    font-size: 100px;
+}
+
+.star:hover,
+.star:hover ~ .star,
+.rate-stars:checked ~ .star{
+    color: #FFF048;
+}
+
+.popover-submit-button{
+    margin: 15px 0 0 450px;
+    background-color: #ff8282;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 20px;
+    border: 1px solid #FF8282;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    width: 130px;
+    height: 50px;
+}
+
+@media (min-width: 768px) and (max-width:850px) {
+    .item-card-unread-number{
+        width: 20px;
+        height: 20px;
+        font-size: 15px;
+        top: 5px;
+        left: 5px;
+    }
+
+    .deal-left{
+        width: 30%;
+    }
+
+    .deal-left-top{
+        font-size: 25px;
+    }
+
+
+    .deal-left-contents li{
+        font-size: 16px;
+        margin: 20px 5%;
+        padding: 5px 5%;
+    }
+
+    .deal-header{
+        padding: 10px 20px;
+    }
+
+    .deal-header h2{
+        font-size: 30px;
+        margin-left: 10px;
+        word-break: keep-all;
+        overflow-wrap: break-word;
+    }
+
+    .item-detail{
+        padding: 10px 20px;
+    }
+
+    .item-img{
+        width: 150px;
+        height: 150px;
+    }
+
+    .item-info{
+        margin: 20px 0 20px 20px;
+    }
+
+    .item-name{
+        font-size: 35px;
+        margin-bottom: 30px;
+    }
+
+    .item-price{
+        font-size: 28px;
+    }
+
+    .deal-chat{
+        padding: 10px 20px;
+    }
+
+    .chat-image{
+        width: 60px;
+        height: 60px;
+    }
+
+    .deal-chat-form{
+        padding: 10px;
+        gap: 10px;
+        margin: 0;
+    }
+
+    .send-message{
+        width: 60%;
+    }
+
+    .send-file-label{
+        font-size: 16px;
+    }
 }

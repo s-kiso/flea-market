@@ -10,10 +10,6 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Purchase;
 use App\Models\User;
-use Illuminate\Routing\Route;
-use Illuminate\Support\Facades\Auth;
-
-use function GuzzleHttp\Promise\all;
 
 class ItemController extends Controller
 {

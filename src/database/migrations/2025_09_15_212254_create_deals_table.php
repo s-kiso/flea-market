@@ -16,8 +16,10 @@ class CreateDealsTable extends Migration
         Schema::create('deals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('item_id');
-            $table->foreignId('user_id');
-            $table->text('chat');
+            $table->text('user_type');
+            $table->text('message');
+            $table->text('image')->nullable();
+            $table->text('check');
             $table->timestamps();
         });
     }

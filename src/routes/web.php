@@ -36,6 +36,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/edit', [MypageController::class, 'edited']);
     Route::get('/deal/:{item_id}', [PurchaseController::class, 'deal'])->name('item.deal');
     Route::post('/deal/:{item_id}', [PurchaseController::class, 'dealing'])->name('deal.submit');
+    Route::post('/deal/chat/:{item_id}', [PurchaseController::class, 'chat'])->name('chat.submit');
+    Route::post('/deal/chat/modify:{item_id}', [PurchaseController::class, 'modify'])->name('chat.modify');
+    Route::post('/deal/chat/image/modify:{item_id}', [PurchaseController::class, 'modify_image'])->name('image.modify');
+    Route::post('/deal/chat/delete:{item_id}', [PurchaseController::class, 'delete'])->name('chat.delete');
 });
 
 

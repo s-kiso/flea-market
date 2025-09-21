@@ -23,7 +23,6 @@
         <div class="item-reaction">
             <form action="/item/like" class="item-reaction-item" method="post">
                 @csrf
-                
                 @if($likes_user == "true")
                     <input type="image" src="{{ asset('storage/'.'star_liked.png') }}" alt="" class="item-reaction-img">
                 @else

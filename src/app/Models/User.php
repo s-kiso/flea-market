@@ -20,10 +20,14 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
         'image',
         'postal_code',
-        'address'
+        'address',
+        'building',
+        'rate',
+        'rate_total'
     ];
 
     /**
@@ -63,10 +67,5 @@ class User extends Authenticatable implements MustVerifyEmail
     public function purchase()
     {
         return $this->belongsToMany(Item::class, 'purchases')->withPivot('postal_code', 'address', 'building', 'condition');
-    }
-
-    public function deal()
-    {
-        return $this->belongsToMany(Item::class, 'deals')->withPivot('chat');
     }
 }

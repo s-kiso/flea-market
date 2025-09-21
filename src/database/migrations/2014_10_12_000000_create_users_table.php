@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('postal_code')->nullable();
             $table->string('address')->nullable();
             $table->string('building')->nullable();
+            $table->integer('rate')->nullable();
+            $table->integer('rate_total')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

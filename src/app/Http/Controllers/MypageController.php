@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
+use App\Models\Deal;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Purchase;
 use App\Models\User;
+use Carbon\Carbon;
 
 class MypageController extends Controller
 {
@@ -48,6 +50,57 @@ class MypageController extends Controller
         $type = $request->query('tab');
         $user_id = auth()->id();
         $user = User::find($user_id);
+        $unread_number = 0;
+
+        //未読のメッセージ数を数える
+        $sell_items = Item::where('user_id', $user_id)->get()->all();
+        // dd($sell_items);
+        foreach ($sell_items as $i => $item) {
+            $purchase_data = $item->purchase->all();
+            if ($purchase_data == null) {
+                unset($sell_items[$i]);
+            } else {
+                foreach ($purchase_data as $data) {
+                    if ($data->pivot->condition == "2" || $data->pivot->condition == "3") {
+                        $unread_data = Deal::where([
+                            ['item_id', '=', $data->pivot->item_id],
+                            ['user_type', '=', "buyer"],
+                            ['check', '=', 1],
+                        ])->get()->all();
+                        $unread_number = $unread_number + count($unread_data);
+                        if($unread_data !== []){
+                            $sell_items[$i]->unread_number = count($unread_data);
+                            $sell_items[$i]->newest_message_time = strval($unread_data[count($unread_data) - 1]->updated_at);
+                        }else{
+                            $sell_items[$i]->unread_number = count($unread_data);
+                            $sell_items[$i]->newest_message_time = '2025-01-01 00:00:00';
+                        }
+                    }else{
+                        unset($sell_items[$i]);
+                    }
+                }
+            }
+        }
+        $purchase_items = $user->purchase->all();
+        foreach ($purchase_items as $i => $item) {
+            if ($item->pivot->condition == "2") {
+                $unread_data = Deal::where([
+                    ['item_id', '=', $item->pivot->item_id],
+                    ['user_type', '=', "seller"],
+                    ['check', '=', 1],
+                ])->get()->all();
+                $unread_number = $unread_number + count($unread_data);
+                if ($unread_data !== []) {
+                    $purchase_items[$i]->unread_number = count($unread_data);
+                    $purchase_items[$i]->newest_message_time = strval($unread_data[count($unread_data) - 1]->updated_at);
+                } else {
+                    $purchase_items[$i]->unread_number = count($unread_data);
+                    $purchase_items[$i]->newest_message_time = '2025-01-01 00:00:00';
+                }
+            }else{
+                unset($purchase_items[$i]);
+            }
+        }
 
         if($type == "buy"){
             $items = $user->purchase->all();
@@ -57,44 +110,35 @@ class MypageController extends Controller
                 }
             }
         }elseif($type == "deal"){
-            //condition==2だけ残す（1,3,nullは削除）
-            $sell_items = Item::where('user_id', $user_id)->get()->all();
-            foreach ($sell_items as $i => $item) {
-                $purchase_data = $item->purchase->all();
-                if($purchase_data == null){
-                    unset($sell_items[$i]);
-                }else{
-                    foreach ($purchase_data as $data) {
-                        if ($data->pivot->condition <> "2") {
-                            unset($sell_items[$i]);
-                        }
-                    }
-                }
-            }
-
-            $purchase_items = $user->purchase->all();
-
-            foreach ($purchase_items as $i => $item) {
-                if ($item->pivot->condition <> "2") {
-                    unset($purchase_items[$i]);
-                }
-            }
-
             $items = array_merge($sell_items, $purchase_items);
-
+            
+            $updated_at = array_map("strtotime", array_column($items, 'newest_message_time'));
+            // dd($updated_at);
+            array_multisort($updated_at, SORT_DESC, $items);
         }else{
             $items = Item::where('user_id', $user_id)->get()->all();
             foreach ($items as $i => $item) {
                 $purchase_data = $item->purchase->all();
                 foreach($purchase_data as $data){
-                    if ($data->pivot->condition == "2") {
+                    if ($data->pivot->condition == "2" || $data->pivot->condition == "3") {
                         unset($items[$i]);
                     }
                 }
             }
         }
+        
+        if(isset($user->rate)){
+            $rate = round($user->rate / $user->rate_total);
+        }else{
+            $rate = 0;
+        }
+        $star_yellow = $rate;
+        $star_white = 5 - $rate;
 
-        return view('profile/index', compact('items', 'user', 'type'));
+        return view('profile/index', compact('items', 'user', 'type', 'unread_number', 'star_yellow', 'star_white'));
     }
 
 }
+
+
+

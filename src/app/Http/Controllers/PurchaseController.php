@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddressRequest;
+use App\Http\Requests\DealRequest;
+use App\Http\Requests\ImageModifyRequest;
+use App\Http\Requests\ModifyRequest;
 use App\Http\Requests\PurchaseRequest;
+use App\Models\Deal;
 use App\Models\Item;
 use App\Models\Purchase;
 use App\Models\User;
+use Facade\Ignition\QueryRecorder\Query;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\DealEnd;
 
 class PurchaseController extends Controller
 {
@@ -129,32 +136,69 @@ class PurchaseController extends Controller
         }
     }
 
-    public function deal($item_id){
+    public function deal(Request $request, $item_id){
         $item = Item::find($item_id);
         $purchase_info = Item::find($item_id)->purchase->first();
+        $condition = $purchase_info->pivot->condition;
         $user_id = auth()->id();
         $user = User::find($user_id);
+        $edit_id = $request->query('edit');
+        $edit_type = $request->query('type');
 
         $seller = User::find($item->user_id);
         $buyer = User::find($purchase_info->pivot->user_id);
+        //メッセージのやり取りを抽出
+        $messages = Deal::where('item_id', $item_id)->orderBy('id', 'asc')->get();
 
         if($item->user_id == $user_id){
             $user_type = "seller";
+            $my_user = $seller;
+            $client_user = $buyer;
+            foreach($messages as $message){
+                if($message->user_type == "buyer"){
+                    $message->check = 2;
+                    $message->update();
+                }
+            }
         }else{
             $user_type = "buyer";
+            $my_user = $buyer;
+            $client_user = $seller;
+            foreach ($messages as $message) {
+                if ($message->user_type == "seller") {
+                    $message->check = 2;
+                    $message->update();
+                }
+            }
         }
 
-        //取引中の全商品を抽出
+        //未読のメッセージ数を数える
         $sell_items = Item::where('user_id', $user_id)->get()->all();
+        $unread_number = 0;
+        // dd($sell_items);
         foreach ($sell_items as $i => $sell_item) {
             $purchase_data = $sell_item->purchase->all();
             if ($purchase_data == null) {
                 unset($sell_items[$i]);
             } else {
                 foreach ($purchase_data as $data) {
-                    if ($data->pivot->condition <> "2") {
+                    if ($data->pivot->item_id == $item_id) {
                         unset($sell_items[$i]);
-                    }elseif($data->pivot->item_id == $item_id){
+                    } elseif ($data->pivot->condition == "2" || $data->pivot->condition == "3") {
+                        $unread_data = Deal::where([
+                            ['item_id', '=', $data->pivot->item_id],
+                            ['user_type', '=', "buyer"],
+                            ['check', '=', 1],
+                        ])->get()->all();
+                        $unread_number = $unread_number + count($unread_data);
+                        if ($unread_data !== []) {
+                            $sell_items[$i]->unread_number = count($unread_data);
+                            $sell_items[$i]->newest_message_time = strval($unread_data[count($unread_data) - 1]->updated_at);
+                        } else {
+                            $sell_items[$i]->unread_number = count($unread_data);
+                            $sell_items[$i]->newest_message_time = '2025-01-01 00:00:00';
+                        }
+                    } else {
                         unset($sell_items[$i]);
                     }
                 }
@@ -162,16 +206,142 @@ class PurchaseController extends Controller
         }
         $purchase_items = $user->purchase->all();
         foreach ($purchase_items as $i => $purchase_item) {
-            if ($purchase_item->pivot->condition <> "2") {
+            if ($purchase_item->id == $item_id) {
                 unset($purchase_items[$i]);
-            }elseif($purchase_item->id == $item_id){
+            } elseif ($purchase_item->pivot->condition == "2") {
+                $unread_data = Deal::where([
+                    ['item_id', '=', $purchase_item->pivot->item_id],
+                    ['user_type', '=', "seller"],
+                    ['check', '=', 1],
+                ])->get()->all();
+                $unread_number = $unread_number + count($unread_data);
+                if ($unread_data !== []) {
+                    $purchase_items[$i]->unread_number = count($unread_data);
+                    $purchase_items[$i]->newest_message_time = strval($unread_data[count($unread_data) - 1]->updated_at);
+                } else {
+                    $purchase_items[$i]->unread_number = count($unread_data);
+                    $purchase_items[$i]->newest_message_time = '2025-01-01 00:00:00';
+                }
+            } else {
                 unset($purchase_items[$i]);
             }
         }
         $dealing_items = array_merge($sell_items, $purchase_items);
 
-        return view('purchase/deal', compact('dealing_items', 'item', 'seller', 'buyer', 'user_type'));
+        $updated_at = array_map("strtotime", array_column($dealing_items, 'newest_message_time'));
+        array_multisort($updated_at, SORT_DESC, $dealing_items);
+
+        
+
+        return view('purchase/deal', compact('dealing_items', 'item', 'my_user', 'client_user', 'user_type', 'messages', 'edit_id', 'edit_type', 'condition'));
     }
+
+    public function dealing(Request $request, $item_id){
+
+        $type = $request->input("type");
+        $rate = $request->input('rate');
+        $purchase_user_id = Item::find($item_id)->purchase->first()->pivot->user_id;
+
+        if (!isset($rate)) {
+            $rate = 0;
+        } else {
+            $rate = 5 - intval($rate);
+        }
+
+        if($type == "buyer"){
+            $seller = User::find(Item::find($item_id)->user_id);
+            $seller->rate = $seller->rate + $rate;
+            $seller->rate_total = $seller->rate_total + 1;
+            $seller->update();
+            Item::find($item_id)->purchase()->sync([$purchase_user_id => ['condition' => "3"]]);
+
+            $user_name = User::find(Item::find($item_id)->user_id)->name;
+            $item = Item::find($item_id)->name;
+            $url = $item_id;
+            $mail_to = User::find(Item::find($item_id)->user_id)->email;
+            Mail::to($mail_to)->send(new DealEnd($user_name, $item, $url));
+        }else{
+            $buyer = User::find(Item::find($item_id)->purchase->first()->pivot->user_id);
+            $buyer->rate = $buyer->rate + $rate;
+            $buyer->rate_total = $buyer->rate_total + 1;
+            $buyer->update();
+            Item::find($item_id)->purchase()->sync([$purchase_user_id => ['condition' => "4"]]);
+        }
+
+        // $purchase_data = Item::find($item_id)->purchase->first();
+        // $user_id = $purchase_data->pivot->user_id;
+
+        // Item::find($item_id)->purchase()->sync([$user_id => ['condition' => "3"]]);
+
+        return redirect()->route('home');
+    }
+
+    public function chat(DealRequest $request, $item_id){
+
+        $user_id = auth()->id();
+        $message = $request->input('chat');
+        $user_type = $request->input('user_type');
+
+        if(isset($request->image)){
+            $filename = $request->image->getClientOriginalName();
+            $image = $request->image->storeAs('', $filename, 'public');
+        }
+
+        $deal = new Deal();
+        $deal->item_id = $item_id;
+        $deal->user_type = $user_type;
+        if(isset($image)){
+            $deal->image = $image;
+        }
+        $deal->message = $message;
+        $deal->check = 1;
+        $deal->save();
+
+        return redirect()->route('item.deal', ['item_id' => $item_id]);
+    }
+
+    public function modify(ModifyRequest $request, $item_id){
+
+        $modify_item = Deal::find($request->edit_id);
+        $modify_message = $request->input('modify_message');
+
+        $modify_item->message = $modify_message;
+        $modify_item->update();
+
+        return redirect()->route('item.deal', ['item_id' => $item_id]);
+    }
+
+    public function modify_image(ImageModifyRequest $request, $item_id)
+    {
+        $modify_item = Deal::find($request->edit_id);
+        $filename = $request->modify_image->getClientOriginalName();
+        $image = $request->modify_image->storeAs('', $filename, 'public');
+        $modify_item->image = $image;
+        $modify_item->update();
+
+        return redirect()->route('item.deal', ['item_id' => $item_id]);
+    }
+
+    public function delete(Request $request, $item_id){
+        $type = $request->input('edit_type');
+        $delete_item = Deal::find($request->edit_id);
+
+        if($type == "message"){
+            if(isset($delete_item->image)){
+                $delete_item->message = null;
+                $delete_item->update();
+            }else{
+                $delete_item->delete();
+            }
+        }else{
+            $delete_item->image = null;
+            $delete_item->update();
+        }
+
+        return redirect()->route('item.deal', ['item_id' => $item_id]);
+    }
+
 }
 
 // condition=1:住所変更済み、未購入。2:購入済み、取引中。3:購入済み、取引終了
+// check=1:未読, check=2:既読

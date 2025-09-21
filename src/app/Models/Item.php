@@ -48,7 +48,7 @@ class Item extends Model
 
     public function deal()
     {
-        return $this->belongsToMany(User::class, 'deals')->withPivot('chat');
+        return $this->hasMany(Deal::class);
     }
 }
 
