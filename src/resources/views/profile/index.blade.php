@@ -12,14 +12,16 @@
         </div>
         <div class="user-info">
             <h2 class="user-name">{{ $user->name }}</h2>
-            <div class="rate">
-                @for($i = 1; $i <= $star_yellow; $i++)
-                    <img src="{{ asset('storage/'.'Star_yellow.png') }}" alt="">
-                @endfor
-                @for($j = 1; $j <= $star_white; $j++)
-                    <img src="{{ asset('storage/'.'Star_white.png') }}" alt="">
-                @endfor
-            </div>
+            @if($star_yellow !== null)
+                <div class="rate">
+                    @for($i = 1; $i <= $star_yellow; $i++)
+                        <img src="{{ asset('storage/'.'Star_yellow.png') }}" alt="">
+                    @endfor
+                    @for($j = 1; $j <= $star_white; $j++)
+                        <img src="{{ asset('storage/'.'Star_white.png') }}" alt="">
+                    @endfor
+                </div>
+            @endif
         </div>
         <a href="/mypage/profile" class="user-edit">プロフィールを編集</a>
     </div>

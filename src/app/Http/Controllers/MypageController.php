@@ -124,11 +124,12 @@ class MypageController extends Controller
 
         if(isset($user->rate)){
             $rate = round($user->rate / $user->rate_total);
+            $star_yellow = $rate;
+            $star_white = 5 - $rate;
         }else{
-            $rate = 0;
+            $star_yellow = null;
+            $star_white = null;
         }
-        $star_yellow = $rate;
-        $star_white = 5 - $rate;
 
         return view('profile/index', compact('items', 'user', 'type', 'unread_number', 'star_yellow', 'star_white'));
     }

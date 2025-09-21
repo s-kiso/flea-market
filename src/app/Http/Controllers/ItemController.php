@@ -51,7 +51,7 @@ class ItemController extends Controller
                     $items = Item::where('name', 'LIKE', "%{$search}%")->get();
                 }
             }
-        }else{
+        } else {
             if ($type == "mylist") {
                 if (isset($user_id)) {
                     $items = User::find($user_id)->like->all();
